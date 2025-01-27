@@ -1,8 +1,6 @@
 <template>
-    <div class="min-h-screen">
+    <div>
         <Navbar />
-        <div class="py-20">
-            <NuxtPage />
-        </div>
+        <NuxtPage />
     </div>
 </template>

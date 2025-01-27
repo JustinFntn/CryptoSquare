@@ -2,8 +2,8 @@
     <div class="flex items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-900">
       <div class="w-full max-w-md bg-white rounded-lg shadow-lg dark:bg-gray-800">
         <div class="px-6 py-8">
-          <h2 class="text-2xl font-bold text-center text-gray-800 dark:text-white">Login</h2>
-          <form @submit.prevent="handleLogin">
+          <h2 class="text-2xl font-bold text-center text-gray-800 dark:text-white">Register</h2>
+          <form @submit.prevent="handleRegister">
             <div class="mt-6">
               <label for="email" class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
                 Email
@@ -12,6 +12,18 @@
                 type="email"
                 id="email"
                 v-model="email"
+                required
+                class="w-full px-4 py-2 text-gray-800 bg-gray-100 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white dark:bg-gray-700 dark:text-white dark:border-gray-600"
+              />
+            </div>
+            <div class="mt-4">
+              <label for="username" class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
+                Username
+              </label>
+              <input
+                type="text"
+                id="username"
+                v-model="username"
                 required
                 class="w-full px-4 py-2 text-gray-800 bg-gray-100 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white dark:bg-gray-700 dark:text-white dark:border-gray-600"
               />
@@ -32,14 +44,14 @@
               type="submit"
               class="w-full mt-6 px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
-              Submit
+              Register
             </button>
           </form>
         </div>
         <div class="px-6 py-4 bg-gray-50 rounded-b-lg dark:bg-gray-700">
           <p class="text-sm text-center text-gray-600 dark:text-gray-300">
-            Not account yet ?
-            <a href="/auth/register" class="text-blue-500 hover:underline">Register</a>
+            Already have an account?
+            <a href="/auth/login" class="text-blue-500 hover:underline">Login</a>
           </p>
         </div>
       </div>
@@ -51,20 +63,17 @@
     data() {
       return {
         email: '',
+        username: '',
         password: '',
       };
     },
     methods: {
-      handleLogin() {
-        // Remplacez par votre logique de login (appel à l'API, validation, etc.)
+      handleRegister() {
+        // Remplacez par votre logique de registre (appel à l'API, validation, etc.)
         console.log('Email:', this.email);
+        console.log('Username:', this.username);
         console.log('Password:', this.password);
       },
     },
   };
   </script>
-  
-  <style scoped>
-  /* Styles optionnels supplémentaires si nécessaire */
-  </style>
-  
