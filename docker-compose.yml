@@ -1,0 +1,8 @@
+services:
+  crypto-square:
+    container_name: crypto-square
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "80:3000"
