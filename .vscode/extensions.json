@@ -1,0 +1,8 @@
+{
+    "recommendations": [
+        "nuxtr.nuxt-vscode-extentions",
+        "editorconfig.editorconfig",
+        "esbenp.prettier-vscode",
+        "exodiusstudios.comment-anchors"
+    ]
+}
