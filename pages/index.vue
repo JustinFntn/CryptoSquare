@@ -1,3 +1,3 @@
 <template>
-<Button label="Verify" />
+  <UButton label="Test" />
 </template>
