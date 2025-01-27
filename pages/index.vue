@@ -1,3 +1,3 @@
 <template>
-    index.vue
+<Button label="Verify" />
 </template>
