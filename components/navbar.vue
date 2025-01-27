@@ -1,5 +1,5 @@
 <template>
-  <div class="fixed w-full top-0 z-50 backdrop-blur-lg bg-neutral-950/75">
+  <div class="fixed w-full top-0 z-50 backdrop-blur-xl">
     <UContainer>
       <div class="flex justify-between items-center py-3">
         <ul class="flex gap-3 items-center">
