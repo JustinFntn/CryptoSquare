@@ -1,6 +1,10 @@
 <template>
   <div>
     <Navbar />
-    <NuxtPage />
+    <UContainer>
+      <div class="py-20">
+        <NuxtPage />
+      </div>
+    </UContainer>
   </div>
 </template>
