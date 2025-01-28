@@ -3,8 +3,8 @@
     <h1 class="text-4xl font-semibold text-center">
       <span class="text-primary-400">Decrypt</span>, learn,
       <span class="relative">
-        <span class="">master</span>
-        <span class="absolute inset-x-0 bottom-0 h-5 bg-green-400/20" aria-hidden="true"></span>
+        <span class="z-50">master</span>
+        <span class="absolute inset-x-0 bottom-0 h-5 bg-green-400/20 z-0" aria-hidden="true"></span>
       </span>
       .
     </h1>
