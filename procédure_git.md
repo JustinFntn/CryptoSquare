@@ -36,3 +36,28 @@ Quelle que soit la charge de travail (1 petit fix ou une grande feature), vous *
 
 5. Créer une pull request sur github:
 
+  - Il y aura probablement un message pour créer la pull request rapidement
+
+![Création rapide PR](docs/img/procédure_git/image-5.png)
+
+  - Si ce n'est pas le cas, créer manuellement :
+
+![Création manuelle PR](docs/img/procédure_git/image-6.png)
+
+  - **Changer la branche de destination** et cliquer sur "créer"
+
+![Changement branche destination](docs/img/procédure_git/image-7.png)
+
+  - Choisir "Create a merge commit". En cas de conflit, si le merge ne peut pas se faire automatiquement, paniquer et alerter tout le monde.
+
+![Create a merge commit](docs/img/procédure_git/image-8.png)
+
+![Confirmer](docs/img/procédure_git/image-9.png)
+
+6. Supprimer la branche d'origine
+
+![Supprimer la branche d'origine](docs/img/procédure_git/image-10.png)
+
+
+
+Je suis conscient que ce procédé peut parraître lourd, mais il est essentiel pour le suivi du projet et pour s'assurer que notre dépôt reste propre, stable et conforme aux standards
