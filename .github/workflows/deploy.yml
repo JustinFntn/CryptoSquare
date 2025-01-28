@@ -1,0 +1,32 @@
+name: Publish package to GitHub Packages
+on:
+  workflow_dispatch:
+  pull_request:
+    branches:
+      - main
+
+env:
+  version: 1
+
+jobs:
+  deploy-prod:
+    runs-on: [self-hosted]
+    environment: 
+      name: production
+      url: https://csquare.dev
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: set env
+        run: |
+          echo '${{ secrets.PROD }}' >> ./.env
+          echo 'version=${{ env.version }}' >> ./.env
+        
+      - name: build
+        run: |
+          docker compose build
+
+      - name: deploy
+        run: |
+          docker compose up -d
