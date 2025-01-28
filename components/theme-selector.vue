@@ -8,12 +8,17 @@ const isDark = computed({
     colorMode.preference = colorMode.value === "dark" ? "light" : "dark"
   },
 })
+
+defineProps({
+  isFixed: Boolean,
+})
 </script>
 
 <template>
   <ClientOnly>
     <UButton
       :icon="isDark ? 'i-heroicons-moon-20-solid' : 'i-heroicons-sun-20-solid'"
+      :class="{ 'fixed top-4 right-4': isFixed }"
       variant="ghost"
       aria-label="Theme"
       @click="isDark = !isDark"
