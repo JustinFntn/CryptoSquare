@@ -1,7 +1,16 @@
 <template>
-  <div class="flex w-screen">
-    <Sidebar />
-    <NuxtPage />
+  <div class="flex min-h-screen">
+    <!-- Sidebar fixe -->
+    <div class="h-screen w-64 bg-gray-800 text-white fixed">
+      <Sidebar />
+    </div>
+
+    <!-- Zone principale (contenu des pages) -->
+    <div class="flex-1 ml-64 overflow-auto">
+      <NuxtPage />
+    </div>
+
+    <!-- Sélecteur de thème -->
     <ThemeSelector :is-fixed="true" />
   </div>
 </template>
