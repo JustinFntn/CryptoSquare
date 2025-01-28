@@ -19,10 +19,14 @@
           </li>
           <UDivider orientation="vertical" />
           <li>
-            <UButton label="Login" variant="ghost" />
+            <SignedOut>
+              <SignInButton />
+            </SignedOut>
           </li>
           <li>
-            <UButton label="Register" variant="outline" />
+            <SignedIn>
+              <UserButton />
+            </SignedIn>
           </li>
         </ul>
       </div>
