@@ -1,10 +1,10 @@
 <template>
   <div class="bg-neutral-100 dark:bg-neutral-900 py-4 h-screen flex flex-col">
     <div
-      class="flex gap-2 items-center hover:bg-primary-200 mx-4 dark:hover:bg-primary-900/50 px-4 rounded py-2 cursor-pointer">
-      <div class="bg-neutral-500 h-9 w-9 rounded-full"></div>
+      class="flex gap-2 items-center hover:bg-primary-200 mx-4 group dark:hover:bg-primary-900/50 px-4 rounded py-2 cursor-pointer">
+      <div class="bg-neutral-500 h-9 w-9 rounded-full border group-hover:border-primary-500 border-transparent"></div>
       <div>
-        <p class="font-semibold">username</p>
+        <p class="font-semibold text-primary-500">username</p>
         <p class="text-sm text-neutral-500">email@example.com</p>
       </div>
     </div>
@@ -38,14 +38,14 @@ import { ref } from "vue"
 
 const linksTop = ref([
   { label: "Home", icon: "i-lucide-house", link: "/dashboard" },
-  { label: "Profile", icon: "i-lucide-user", link: "/profile" },
-  { label: "Groups", icon: "i-lucide-waypoints", link: "/groups" },
-  { label: "Challenges", icon: "i-lucide-brain-circuit", link: "/challenges" },
+  { label: "Profile", icon: "i-lucide-user", link: "/dashboard/profile" },
+  { label: "Groups", icon: "i-lucide-waypoints", link: "/dashboard/groups" },
+  { label: "Challenges", icon: "i-lucide-brain-circuit", link: "/dashboard/challenges" },
 ])
 
 const linksButtom = ref([
   { label: "Logout", icon: "i-lucide-log-out", link: "/" },
-  { label: "Preferences", icon: "i-lucide-settings", link: "/preferences" },
-  { label: "Help", icon: "i-lucide-circle-help", link: "/help" },
+  { label: "Preferences", icon: "i-lucide-settings", link: "/dashboard/preferences" },
+  { label: "Help", icon: "i-lucide-circle-help", link: "/dashboard/help" },
 ])
 </script>

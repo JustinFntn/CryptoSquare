@@ -8,22 +8,9 @@
         <div class="overflow-x-auto">
             <!-- Flexbox pour les cartes -->
             <div class="flex gap-3 w-fit py-2">
-                <DashboardChallengesCard :title="'Cryptage César'" :difficulty="'easy'"
-                    :description="'buqz duqzvd uqzvd uqzv dqzud vqzdv '" />
-                <DashboardChallengesCard :title="'Cryptage César'" :difficulty="'easy'"
-                    :description="'buqz duqzvd uqzvd uqzv dqzud vqzdv '" />
-                <DashboardChallengesCard :title="'Cryptage César'" :difficulty="'easy'"
-                    :description="'buqz duqzvd uqzvd uqzv dqzud vqzdv '" />
-                <DashboardChallengesCard :title="'Cryptage César'" :difficulty="'easy'"
-                    :description="'buqz duqzvd uqzvd uqzv dqzud vqzdv '" />
-                <DashboardChallengesCard :title="'Cryptage César'" :difficulty="'easy'"
-                    :description="'buqz duqzvd uqzvd uqzv dqzud vqzdv '" />
-                <DashboardChallengesCard :title="'Cryptage César'" :difficulty="'easy'"
-                    :description="'buqz duqzvd uqzvd uqzv dqzud vqzdv '" />
-                <DashboardChallengesCard :title="'Cryptage César'" :difficulty="'easy'"
-                    :description="'buqz duqzvd uqzvd uqzv dqzud vqzdv '" />
-                <DashboardChallengesCard :title="'Cryptage César'" :difficulty="'easy'"
-                    :description="'buqz duqzvd uqzvd uqzv dqzud vqzdv '" />
+                <!-- Boucle sur la liste des défis -->
+                <DashboardChallengesCard v-for="challenge in challengesList" :key="challenge.id"
+                    :title="challenge.title" :difficulty="challenge.difficulty" :description="challenge.description" />
             </div>
         </div>
     </div>
@@ -37,6 +24,10 @@ const props = defineProps({
     },
     subtitle: {
         type: String,
+        required: true
+    },
+    challengesList: {
+        type: Array,
         required: true
     }
 });
