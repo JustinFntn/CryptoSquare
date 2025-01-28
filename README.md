@@ -20,3 +20,11 @@ git checkout -b topic/VotreTrigramme/<M|B|R>-<id de l issue>-description
 # Exemple
 git checkout -b topic/CPR/M-0001-Description
 ```
+
+## Couleurs à utiliser
+
+- white
+- black
+- deepblue (primary)
+- neonblue (secondary)
+- mauve (accent)
