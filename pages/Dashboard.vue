@@ -2,14 +2,12 @@
   <div>
 
     <!-- TODO - dashboard page -->
-    
+
   </div>
 </template>
 
-<script lang="ts" setup>
-
+<script setup>
+definePageMeta({
+  layout: 'user'
+})
 </script>
-
-<style>
-
-</style>

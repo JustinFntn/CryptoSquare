@@ -1,32 +1,29 @@
 <template>
-  <div class="bg-slate-800 px-4 py-4 h-screen flex flex-col">
-    <div class="flex gap-2 items-center hover:bg-neutral-900 rounded px-4 py-2 cursor-pointer">
+  <div class="bg-neutral-100 dark:bg-neutral-900 py-4 h-screen flex flex-col">
+    <div
+      class="flex gap-2 items-center hover:bg-primary-200 mx-4 dark:hover:bg-primary-900/50 px-4 rounded py-2 cursor-pointer">
       <div class="bg-neutral-500 h-9 w-9 rounded-full"></div>
       <div>
         <p class="font-semibold">username</p>
         <p class="text-sm text-neutral-500">email@example.com</p>
       </div>
     </div>
-    <div class="flex-grow border-t mt-2 border-neutral-500">
-      <ul class="w-full">
+    <div class="flex-grow border-t mt-2 dark:border-neutral-800">
+      <ul class="w-full px-4">
         <li v-for="link in linksTop" :key="link.label" class="w-full">
-          <NuxtLink
-            :to="link.link"
-            class="flex w-full gap-3 items-center px-4 py-1 my-2 hover:bg-neutral-900 rounded transition"
-          >
+          <NuxtLink :to="link.link"
+            class="flex w-full gap-3 items-center px-4 py-1 my-2 hover:bg-primary-200 dark:hover:bg-primary-900/50 rounded transition">
             <UIcon :name="link.icon" />
             <h3>{{ link.label }}</h3>
           </NuxtLink>
         </li>
       </ul>
     </div>
-    <div>
-      <ul class="w-full">
+    <div class="dark:border-neutral-800 border-t">
+      <ul class="w-full px-4">
         <li v-for="link in linksButtom" :key="link.label" class="w-full">
-          <NuxtLink
-            :to="link.link"
-            class="flex w-full gap-3 items-center px-4 py-1 my-2 hover:bg-neutral-900 rounded transition"
-          >
+          <NuxtLink :to="link.link"
+            class="flex w-full gap-3 items-center px-4 py-1 my-2 hover:bg-primary-200 dark:hover:bg-primary-900/50 rounded transition">
             <UIcon :name="link.icon" />
             <h3>{{ link.label }}</h3>
           </NuxtLink>
