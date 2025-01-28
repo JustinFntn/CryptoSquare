@@ -12,6 +12,7 @@
     "commitlint": "commitlint --edit"
   },
   "dependencies": {
+    "@clerk/nuxt": "^1.0.12",
     "@nuxt/ui": "2.21.0",
     "@primevue/themes": "^4.2.5",
     "nuxt": "^3.15.3",
