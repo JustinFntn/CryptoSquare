@@ -4,9 +4,8 @@
       <span class="text-primary-400">Decrypt</span>, learn,
       <span class="relative">
         <span class="z-50">master</span>
-        <span class="absolute inset-x-0 bottom-0 h-5 bg-green-400/20 z-0" aria-hidden="true"></span>
+        <span class="absolute inset-x-0 bottom-0 h-5 bg-primary-400/20 z-0" aria-hidden="true"></span>
       </span>
-      .
     </h1>
     <p class="text-center text-neutral-400 mt-4">
       Learn to be the best you can be through cryptography tests. Be the best among other users
