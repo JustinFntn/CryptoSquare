@@ -1,10 +1,6 @@
 <template>
-
-  <header>
+  <UApp>
     <Navbar />
-  </header>
-
-  <main>
     <NuxtPage />
-  </main>
+  </UApp>
 </template>
