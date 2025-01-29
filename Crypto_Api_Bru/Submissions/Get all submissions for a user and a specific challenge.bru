@@ -1,0 +1,16 @@
+meta {
+  name: Get all submissions for a user and a specific challenge
+  type: http
+  seq: 7
+}
+
+get {
+  url: {{BaseUrl}}/api/submissions/user/:id_user/challenge/:id_challenge
+  body: none
+  auth: none
+}
+
+params:path {
+  id_user: 
+  id_challenge: 
+}

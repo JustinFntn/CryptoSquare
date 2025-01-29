@@ -55,8 +55,20 @@ export async function getSubmissionByIdFromDB(id: string): Promise<Submission | 
       stack: undefined,
     })
   }
-
   return db.collection<Submission>("submissions").findOne({ _id: new ObjectId(id) })
+}
+
+export async function getSubmissionByUserIdFromDB(userId: string): Promise<Submission[]> {
+  const db = await useMongo()
+  return db.collection<Submission>("submissions").find({ userId }).toArray()
+}
+
+export async function getSubmissionByUserIdFromDBAndChallengeId(
+  userId: string,
+  challengeId: string
+): Promise<Submission[]> {
+  const db = await useMongo()
+  return db.collection<Submission>("submissions").find({ userId, challengeId }).toArray()
 }
 
 export async function updateSubmissionInDB(id: string, data: Partial<Submission>): Promise<Submission> {
