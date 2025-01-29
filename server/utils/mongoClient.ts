@@ -1,0 +1,15 @@
+import { MongoClient, Db } from "mongodb"
+
+const uri =
+  process.env.MONGO_URI || "mongodb://cryptoadmin:KFfskkFpplqlcka@localhost:27017/cryptoSquare?authSource=admin"
+let client: MongoClient
+let db: Db
+
+export async function useMongo(): Promise<Db> {
+  if (!client) {
+    client = new MongoClient(uri)
+    await client.connect()
+    db = client.db()
+  }
+  return db
+}
