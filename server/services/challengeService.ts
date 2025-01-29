@@ -1,0 +1,85 @@
+import { ObjectId } from "mongodb"
+import { useMongo } from "~/server/utils/mongoClient"
+import { createError } from "h3"
+
+export interface Challenge {
+  _id?: ObjectId
+  title: string
+  subtitle: string
+  difficulty: string
+  content: string
+  basePoints: number
+  clues: { textEnigme: string; value: number }[]
+}
+
+export async function getAllChallengesFromDB(): Promise<Challenge[]> {
+  const db = await useMongo()
+  return db.collection<Challenge>("challenges").find().toArray()
+}
+
+export async function createChallengeInDB(data: Partial<Challenge>): Promise<Challenge> {
+  if (!data.title || !data.subtitle || !data.difficulty || !data.content || !data.basePoints || !data.clues) {
+    throw createError({
+      statusCode: 400,
+      statusMessage: "Bad Request",
+      message: "All fields are required",
+      stack: undefined,
+    })
+  }
+
+  const db = await useMongo()
+  const newChallenge: Challenge = {
+    _id: new ObjectId(),
+    title: data.title,
+    subtitle: data.subtitle,
+    difficulty: data.difficulty,
+    content: data.content,
+    basePoints: data.basePoints,
+    clues: data.clues,
+  }
+
+  const result = await db.collection<Challenge>("challenges").insertOne(newChallenge)
+  return { ...newChallenge, _id: result.insertedId }
+}
+
+export async function getChallengeByIdFromDB(id: string): Promise<Challenge | null> {
+  const db = await useMongo()
+  return db.collection<Challenge>("challenges").findOne({ _id: new ObjectId(id) })
+}
+
+export async function updateChallengeInDB(id: string, data: Partial<Challenge>): Promise<Challenge> {
+  const db = await useMongo()
+  const collection = db.collection<Challenge>("challenges")
+
+  const existingChallenge = await collection.findOne({ _id: new ObjectId(id) })
+  if (!existingChallenge) {
+    throw createError({
+      statusCode: 404,
+      statusMessage: "Not Found",
+      message: `Challenge with id '${id}' not found`,
+      stack: undefined,
+    })
+  }
+
+  const updatedChallenge = { ...existingChallenge, ...data }
+  await collection.updateOne({ _id: new ObjectId(id) }, { $set: updatedChallenge })
+
+  return updatedChallenge
+}
+
+export async function deleteChallengeFromDB(id: string): Promise<void> {
+  const db = await useMongo()
+  const collection = db.collection<Challenge>("challenges")
+
+  const existingChallenge = await collection.findOne({ _id: new ObjectId(id) })
+  if (!existingChallenge) {
+    throw createError({
+      statusCode: 404,
+      statusMessage: "Not Found",
+      message: `Challenge with id '${id}' not found`,
+      stack: undefined,
+    })
+  }
+
+  await collection.deleteOne({ _id: new ObjectId(id) })
+}

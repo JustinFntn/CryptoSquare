@@ -5,13 +5,14 @@ meta {
 }
 
 patch {
-  url: {{BaseUrl}}/api/users/group/6799f422934c5ca60e7891f1
+  url: {{BaseUrl}}/api/users/group
   body: json
   auth: none
 }
 
 body:json {
   {
-    "userIds": ["6798dae04c403f16e074b99e", "6798ec4cd0a1b56ef0f9f176"]
+    "groupId": "6798dfe62a0c2fa450eb697eeee",
+    "userIds": ["TEST", "ABCDEDFFA"]
   }
 }

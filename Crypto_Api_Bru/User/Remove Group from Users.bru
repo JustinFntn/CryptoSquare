@@ -5,7 +5,13 @@ meta {
 }
 
 delete {
-  url: {{BaseUrl}}/api/users/group/6799f422934c5ca60e7891f1
-  body: none
+  url: {{BaseUrl}}/api/users/group
+  body: json
   auth: none
+}
+
+body:json {
+  {
+    "userIds": ["ABCDEDFFA", "TEST"]
+  }
 }

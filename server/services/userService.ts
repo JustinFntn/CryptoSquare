@@ -1,29 +1,19 @@
-import { ObjectId } from "mongodb"
 import { useMongo } from "~/server/utils/mongoClient"
 import { createError } from "h3"
 
 export interface User {
-  _id?: ObjectId
-  clerkUserId: string
+  _id?: string
   username: string
   email?: string | null
-  groupId?: ObjectId | null
+  groupId?: string | null
 }
 
 export async function createUserInDB(data: Partial<User>): Promise<User> {
-  if (!data.username) {
+  if (!data._id || !data.username) {
     throw createError({
       statusCode: 400,
       statusMessage: "Bad Request",
-      message: "'username' is required",
-      stack: undefined,
-    })
-  }
-  if (!data.clerkUserId) {
-    throw createError({
-      statusCode: 400,
-      statusMessage: "Bad Request",
-      message: "'clerkUserId' is required",
+      message: "'id' and 'username' are required",
       stack: undefined,
     })
   }
@@ -31,120 +21,78 @@ export async function createUserInDB(data: Partial<User>): Promise<User> {
   const db = await useMongo()
   const usersCollection = db.collection<User>("users")
 
-  const existingUser = await usersCollection.findOne({ clerkUserId: data.clerkUserId })
+  const existingUser = await usersCollection.findOne({ _id: data._id })
   if (existingUser) {
     throw createError({
       statusCode: 409,
       statusMessage: "Conflict",
-      message: `User with clerkUserId '${data.clerkUserId}' already exists`,
+      message: `User with _id '${data._id}' already exists`,
       stack: undefined,
     })
   }
 
   const newUser: User = {
-    _id: new ObjectId(),
-    clerkUserId: data.clerkUserId!,
-    username: data.username!,
+    _id: data._id,
+    username: data.username,
     email: data.email ?? null,
     groupId: data.groupId ?? null,
   }
 
-  const result = await usersCollection.insertOne(newUser)
-
-  return {
-    _id: result.insertedId,
-    ...newUser,
-  }
+  await usersCollection.insertOne(newUser)
+  return newUser
 }
 
 export async function getAllUsersFromDB(): Promise<User[]> {
   const db = await useMongo()
-  const usersCollection = db.collection<User>("users")
-
-  return usersCollection.find().toArray()
+  return db.collection<User>("users").find().toArray()
 }
 
-export async function getUserByIdFromDB(id: string): Promise<User | null> {
+export async function getUserByIdFromDB(userId: string): Promise<User | null> {
+  const db = await useMongo()
+  return db.collection<User>("users").findOne({ _id: userId })
+}
+
+export async function updateUserInDB(userId: string, data: Partial<User>): Promise<User> {
   const db = await useMongo()
   const usersCollection = db.collection<User>("users")
 
-  return usersCollection.findOne({ _id: new ObjectId(id) })
-}
-
-export async function updateUserInDB(id: string, data: Partial<User>): Promise<User> {
-  const db = await useMongo()
-  const usersCollection = db.collection<User>("users")
-
-  const existingUser = await usersCollection.findOne({ _id: new ObjectId(id) })
+  const existingUser = await usersCollection.findOne({ _id: userId })
   if (!existingUser) {
     throw createError({
       statusCode: 404,
       statusMessage: "Not Found",
-      message: `User with id '${id}' not found`,
+      message: `User with _id '${userId}' not found`,
       stack: undefined,
     })
   }
 
-  const updatedUser: User = {
-    ...existingUser,
-    ...data,
-  }
-
-  await usersCollection.updateOne({ _id: new ObjectId(id) }, { $set: updatedUser })
-
-  return updatedUser
+  await usersCollection.updateOne({ _id: userId }, { $set: data })
+  return { ...existingUser, ...data }
 }
 
-export async function deleteUserFromDB(id: string): Promise<void> {
+export async function deleteUserFromDB(userId: string): Promise<void> {
   const db = await useMongo()
   const usersCollection = db.collection<User>("users")
 
-  const existingUser = await usersCollection.findOne({ _id: new ObjectId(id) })
+  const existingUser = await usersCollection.findOne({ _id: userId })
   if (!existingUser) {
     throw createError({
       statusCode: 404,
       statusMessage: "Not Found",
-      message: `User with id '${id}' not found`,
+      message: `User with _id '${userId}' not found`,
       stack: undefined,
     })
   }
 
-  await usersCollection.deleteOne({ _id: new ObjectId(id) })
-}
-
-export async function getUserByClerkUserIdFromDB(clerkUserId: string): Promise<User | null> {
-  const db = await useMongo()
-  const usersCollection = db.collection<User>("users")
-
-  return usersCollection.findOne({ clerkUserId })
+  await usersCollection.deleteOne({ _id: userId })
 }
 
 export async function updateGroupForUsersInDB(groupId: string, userIds: string[]): Promise<void> {
   const db = await useMongo()
   const usersCollection = db.collection<User>("users")
 
-  if (!ObjectId.isValid(groupId)) {
-    throw createError({
-      statusCode: 400,
-      statusMessage: "Bad Request",
-      message: "Invalid groupId format (must be a 24-character hex string)",
-      stack: undefined,
-    })
-  }
+  const existingUsers = await usersCollection.find({ _id: { $in: userIds } }).toArray()
 
-  const objectUserIds = userIds.map((id) => {
-    if (!ObjectId.isValid(id)) {
-      throw createError({
-        statusCode: 400,
-        statusMessage: "Bad Request",
-        message: `Invalid userId format: ${id} (must be a 24-character hex string)`,
-        stack: undefined,
-      })
-    }
-    return new ObjectId(id)
-  })
-
-  const existingUsers = await usersCollection.find({ _id: { $in: objectUserIds } }).toArray()
   if (existingUsers.length !== userIds.length) {
     throw createError({
       statusCode: 400,
@@ -154,31 +102,12 @@ export async function updateGroupForUsersInDB(groupId: string, userIds: string[]
     })
   }
 
-  await usersCollection.updateMany({ _id: { $in: objectUserIds } }, { $set: { groupId: new ObjectId(groupId) } })
+  await usersCollection.updateMany({ _id: { $in: userIds } }, { $set: { groupId } })
 }
 
-export async function removeGroupForUsersInDB(groupId: string): Promise<void> {
+export async function removeGroupFromUsersInDB(userIds: string[]): Promise<void> {
   const db = await useMongo()
   const usersCollection = db.collection<User>("users")
 
-  if (!ObjectId.isValid(groupId)) {
-    throw createError({
-      statusCode: 400,
-      statusMessage: "Bad Request",
-      message: "Invalid groupId format (must be a 24-character hex string)",
-      stack: undefined,
-    })
-  }
-
-  const usersInGroup = await usersCollection.find({ groupId: new ObjectId(groupId) }).toArray()
-  if (usersInGroup.length === 0) {
-    throw createError({
-      statusCode: 404,
-      statusMessage: "Not Found",
-      message: `No users found in group ${groupId}`,
-      stack: undefined,
-    })
-  }
-
-  await usersCollection.updateMany({ groupId: new ObjectId(groupId) }, { $set: { groupId: null } })
+  await usersCollection.updateMany({ _id: { $in: userIds } }, { $set: { groupId: null } })
 }

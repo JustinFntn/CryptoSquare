@@ -1,32 +1,33 @@
 import { defineEventHandler, createError, readBody } from "h3"
-import { getUserByIdFromDB, updateUserInDB, deleteUserFromDB } from "~/server/services/userService"
+import { ObjectId } from "mongodb"
+import { getChallengeByIdFromDB, updateChallengeInDB, deleteChallengeFromDB } from "~/server/services/challengeService"
 
 export default defineEventHandler(async (event) => {
   const method = event.node.req.method
-  const id = event.context.params?.id
+  const { id } = event.context.params || {}
 
-  if (!id) {
+  if (!id || !ObjectId.isValid(id)) {
     throw createError({
       statusCode: 400,
       statusMessage: "Bad Request",
-      message: "_id is required in URL",
+      message: "Invalid or missing challenge ID",
       stack: undefined,
     })
   }
 
   if (method === "GET") {
-    return await getUserByIdFromDB(id)
+    return await getChallengeByIdFromDB(id)
   }
 
   if (method === "PUT") {
     try {
       const body = await readBody(event)
-      return await updateUserInDB(id, body)
+      return await updateChallengeInDB(id, body)
     } catch (error: any) {
       throw createError({
         statusCode: 500,
         statusMessage: "Internal Server Error",
-        message: error.message,
+        message: error.message || "Failed to update challenge",
         stack: undefined,
       })
     }
@@ -34,13 +35,13 @@ export default defineEventHandler(async (event) => {
 
   if (method === "DELETE") {
     try {
-      await deleteUserFromDB(id)
-      return { message: "User deleted successfully" }
+      await deleteChallengeFromDB(id)
+      return { message: "Challenge deleted successfully" }
     } catch (error: any) {
       throw createError({
         statusCode: 500,
         statusMessage: "Internal Server Error",
-        message: error.message,
+        message: error.message || "Failed to delete challenge",
         stack: undefined,
       })
     }

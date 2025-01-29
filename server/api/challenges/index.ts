@@ -1,26 +1,20 @@
 import { defineEventHandler, createError, readBody } from "h3"
-import { createUserInDB, getAllUsersFromDB } from "~/server/services/userService"
+import { getUserByIdFromDB, createUserInDB } from "~/server/services/userService"
 
 export default defineEventHandler(async (event) => {
   const method = event.node.req.method
 
   if (method === "GET") {
-    return await getAllUsersFromDB()
+    const { _id } = getQuery(event)
+    if (!_id) {
+      throw createError({ statusCode: 400, statusMessage: "Bad Request", message: "_id is required" })
+    }
+    return await getUserByIdFromDB(_id as string)
   }
 
   if (method === "POST") {
     try {
       const body = await readBody(event)
-
-      if (!body._id) {
-        throw createError({
-          statusCode: 400,
-          statusMessage: "Bad Request",
-          message: "_id is required in the request body",
-          stack: undefined,
-        })
-      }
-
       return await createUserInDB(body)
     } catch (error: any) {
       throw createError({
