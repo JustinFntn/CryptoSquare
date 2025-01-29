@@ -11,6 +11,9 @@ importers:
       '@clerk/nuxt':
         specifier: ^1.0.12
         version: 1.0.12(magicast@0.3.5)(react@19.0.0)(rollup@4.32.0)(vue@3.5.13(typescript@5.7.3))
+      '@clerk/themes':
+        specifier: ^2.2.13
+        version: 2.2.13
       '@clerk/vue':
         specifier: ^1.1.7
         version: 1.1.7(react@19.0.0)(vue@3.5.13(typescript@5.7.3))
@@ -26,6 +29,9 @@ importers:
       '@primevue/themes':
         specifier: ^4.2.5
         version: 4.2.5
+      clerk-themez:
+        specifier: ^1.0.9
+        version: 1.0.9
       marked:
         specifier: ^15.0.6
         version: 15.0.6
@@ -233,6 +239,10 @@ packages:
         optional: true
       react-dom:
         optional: true
+
+  '@clerk/themes@2.2.13':
+    resolution: {integrity: sha512-OIB5fiA7G60/jNIvjHoTwJhWWXVHCXD7Ww1DD939uCScJUmway5ThVH2idjg3Qo3R3gg1dBFFnxwOkY3jzSHQA==}
+    engines: {node: '>=18.17.0'}
 
   '@clerk/types@4.44.1':
     resolution: {integrity: sha512-CP+ABOzzHkVVbFMTZpcf/hC2rewtVJOxeFBbvmK0p2emDJwp3tkyGhw03mrt4yiEpeEgdD3n+N0weEadVFu3mw==}
@@ -1394,6 +1404,9 @@ packages:
 
   citty@0.1.6:
     resolution: {integrity: sha512-tskPPKEs8D2KPafUypv2gxwJP8h/OaJmC82QQGGDQcHvXX43xF2VDACcJVmZ0EuSxkpO9Kc4MlrA3q0+FG58AQ==}
+
+  clerk-themez@1.0.9:
+    resolution: {integrity: sha512-MMI/fL0Nm0m1Q4Q+xcZy/no42my40ofS9SlJNaAyDy3ATOkVggsQbWjGhYCKn701Kc3dGShpRQX7j3Rp6M6XGA==}
 
   clipboardy@4.0.0:
     resolution: {integrity: sha512-5mOlNS0mhX0707P2I0aZ2V/cmHUEO/fL7VFLqszkhUsxt7RwnmrInf/eEQKlf5GzvYeHIjT+Ov1HRfNmymlG0w==}
@@ -4229,6 +4242,11 @@ snapshots:
     optionalDependencies:
       react: 19.0.0
 
+  '@clerk/themes@2.2.13':
+    dependencies:
+      '@clerk/types': 4.44.1
+      tslib: 2.4.1
+
   '@clerk/types@4.44.1':
     dependencies:
       csstype: 3.1.1
@@ -5671,6 +5689,8 @@ snapshots:
   citty@0.1.6:
     dependencies:
       consola: 3.4.0
+
+  clerk-themez@1.0.9: {}
 
   clipboardy@4.0.0:
     dependencies:
