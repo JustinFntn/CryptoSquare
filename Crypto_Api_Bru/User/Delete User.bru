@@ -5,7 +5,11 @@ meta {
 }
 
 delete {
-  url: {{BaseUrl}}/api/users/60f8b4b2d0a0a12d4a567891
+  url: {{BaseUrl}}/api/users/:id
   body: none
   auth: none
+}
+
+params:path {
+  id: 60f8b4b2d0a0a12d4a567891
 }

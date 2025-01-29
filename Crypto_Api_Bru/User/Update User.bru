@@ -5,9 +5,13 @@ meta {
 }
 
 put {
-  url: {{BaseUrl}}/api/users/TEST
+  url: {{BaseUrl}}/api/users/:id
   body: json
   auth: none
+}
+
+params:path {
+  id: TEST
 }
 
 body:json {

@@ -5,7 +5,11 @@ meta {
 }
 
 delete {
-  url: {{BaseUrl}}/api/groups/6799f42b934c5ca60e7891f2
+  url: {{BaseUrl}}/api/groups/:id
   body: none
   auth: none
+}
+
+params:path {
+  id: 6798dfe62a0c2fa450eb697e
 }

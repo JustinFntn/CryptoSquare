@@ -5,7 +5,11 @@ meta {
 }
 
 get {
-  url: {{BaseUrl}}/api/users/TEST
+  url: {{BaseUrl}}/api/users/:id
   body: none
   auth: none
+}
+
+params:path {
+  id: TEST
 }

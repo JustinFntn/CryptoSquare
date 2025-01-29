@@ -1,18 +1,18 @@
 import { defineEventHandler, createError, readBody } from "h3"
-import { getAllChallengesFromDB, createChallengeInDB } from "~/server/services/challengeService"
+import { getAllSubmissionsFromDB, createSubmissionInDB } from "~/server/services/submissionService"
 
 export default defineEventHandler(async (event) => {
   const method = event.node.req.method
 
   if (method === "GET") {
     try {
-      const challenges = await getAllChallengesFromDB()
-      return { message: "Challenges retrieved successfully", challenges }
+      const submissions = await getAllSubmissionsFromDB()
+      return { message: "Submissions retrieved successfully", submissions }
     } catch (error: any) {
       throw createError({
         statusCode: 500,
         statusMessage: "Internal Server Error",
-        message: error.message || "Failed to retrieve challenges",
+        message: error.message || "Failed to retrieve submissions",
         stack: undefined,
       })
     }
@@ -21,18 +21,8 @@ export default defineEventHandler(async (event) => {
   if (method === "POST") {
     try {
       const body = await readBody(event)
-
-      if (!body.title || !body.subtitle || !body.difficulty || !body.content || !body.basePoints || !body.clues) {
-        throw createError({
-          statusCode: 400,
-          statusMessage: "Bad Request",
-          message: "All fields are required to create a challenge",
-          stack: undefined,
-        })
-      }
-
-      const newChallenge = await createChallengeInDB(body)
-      return { message: "Challenge created successfully", challenge: newChallenge }
+      const newSubmission = await createSubmissionInDB(body)
+      return { message: "Submission created successfully", submission: newSubmission }
     } catch (error: any) {
       throw createError({
         statusCode: error.statusCode || 500,
