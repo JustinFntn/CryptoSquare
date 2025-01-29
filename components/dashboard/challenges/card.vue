@@ -5,21 +5,19 @@
                 :color="buttonColor" v-if="isCompleted" />
             <UBadge :label="difficulty" class="w-fit capitalize absolute top-2 right-2" :color="buttonColor"
                 variant="soft" />
-            <h1 class="font-semibold line-clamp-1 text-center" :class="textClass">{{ title }}</h1>
+            <h1 class="font-semibold line-clamp-2 text-center" :class="textClass">{{ title }}</h1>
         </div>
         <div class="px-2 py-1">
             <p class="text-sm line-clamp-2">
-                {{ description }}
+                {{ subtitle }}
             </p>
             <UButton size="2xs" block label="Start challenge" class="my-2" icon="i-lucide-arrow-right"
-                :color="buttonColor" />
+                :color="buttonColor" :to="`/dashboard/challenges/${props._id}`" />
         </div>
     </div>
 </template>
 
 <script setup>
-import button from '#ui/ui.config/elements/button';
-import { computed } from 'vue';
 
 const props = defineProps({
     title: {
@@ -30,12 +28,16 @@ const props = defineProps({
         type: String,
         required: true
     },
-    description: {
+    subtitle: {
         type: String,
         required: true
     },
     isCompleted: {
         type: Boolean,
+    },
+    _id: {
+        type: Number,
+        required: true
     }
 });
 
@@ -74,4 +76,6 @@ const textClass = computed(() => {
     const color = buttonColor.value;  // Get the current button color
     return `text-${color}-500`;       // Generate the text color class (e.g., text-green-900)
 });
+
+console.log(props)
 </script>

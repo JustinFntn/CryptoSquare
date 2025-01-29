@@ -1,0 +1,22 @@
+meta {
+  name: Create Submission
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{BaseUrl}}/api/submissions
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "userId": "TES",
+    "challengeId": "challenge4565666",
+    "status": "stand by",
+    "hintsUsed": 1,
+    "attemptCount": 2,
+    "pointsEarned": 30
+  }
+}
