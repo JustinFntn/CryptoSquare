@@ -10,7 +10,8 @@
             <div class="flex gap-3 w-fit py-2">
                 <!-- Boucle sur la liste des défis -->
                 <DashboardChallengesCard v-for="challenge in challengesList" :key="challenge.id"
-                    :title="challenge.title" :difficulty="challenge.difficulty" :description="challenge.description" />
+                    :title="challenge.title" :difficulty="challenge.difficulty" :subtitle="challenge.subtitle"
+                    :_id="challenge._id" />
             </div>
         </div>
     </div>

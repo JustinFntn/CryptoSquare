@@ -7,7 +7,8 @@
                 <UDivider class="my-4" />
                 <div class="flex justify-between">
                     <UInput color="primary" variant="outline" placeholder="Search..." />
-                    <UButton label="Create a squad" icon="i-lucide-circle-plus" variant="outline" />
+                    <UButton label="Create a squad" icon="i-lucide-circle-plus" variant="outline"
+                        to="/dashboard/groups/new" />
                 </div>
                 <div>
                     <DashboardChallengesGroupsCard />

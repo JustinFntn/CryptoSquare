@@ -1,5 +1,5 @@
 <template>
-  <div class="flex min-h-screen">
+  <div class="flex min-h-screen w-full overflow-x-hidden">
     <!-- Sidebar fixe -->
     <div class="h-screen w-64 bg-gray-800 text-white fixed">
       <Sidebar />

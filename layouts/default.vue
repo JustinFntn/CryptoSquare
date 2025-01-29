@@ -7,4 +7,8 @@
   <main>
     <NuxtPage />
   </main>
+
+  <footer>
+    <Footer />
+  </footer>
 </template>
