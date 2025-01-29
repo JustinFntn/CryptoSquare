@@ -1,6 +1,6 @@
 <template>
   <UContainer class="sticky flex py-3 top-0 z-50 items-center gap-3 backdrop-blur-xl">
-    <Logo class="pr-2" />
+    <Logo class="pr-4" />
     <UHorizontalNavigation :links="links" :ui="uiConfig" />
     <ThemeSelector />
     <UDivider orientation="vertical" class="h-8 bg-gray-200 dark:bg-gray-700" />
@@ -8,7 +8,7 @@
       <UserButton />
     </SignedIn>
     <SignedOut>
-      <SignInButton class="w-[70px]" />
+      <SignInButton class="w-[70px]" mode="modal" />
     </SignedOut>
   </UContainer>
 </template>
@@ -23,7 +23,12 @@ const links = [
     label: 'About',
     icon: 'i-heroicons-information-circle',
     to: '/about'
-  },],
+  }, {
+    label: 'Dashboard',
+    icon: 'i-heroicons-academic-cap',
+    to: '/dashboard'
+  }
+  ]
 ]
 
 const uiConfig = {

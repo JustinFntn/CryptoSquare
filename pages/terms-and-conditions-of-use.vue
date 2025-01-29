@@ -1,21 +1,22 @@
 <template>
   <UContainer>
-
-    <div class="min-h-screen my-20 text-white flex items-center justify-center p-4">
-      <div class="prose prose-invert max-w-4xl">
+    <div class="min-h-screen my-20 flex items-center justify-center p-4">
+      <div class="prose max-w-4xl">
         <h1 class="text-4xl font-bold">Conditions Générales d'Utilisation</h1>
         <p>Date de dernière mise à jour : <span>{{ updatedAt }}</span></p>
         <section>
           <h2>1. Présentation du Service</h2>
           <p>
-            Crypto Squad est une application de jeu en ligne spécialisée dans les énigmes et défis de cryptographie. Les
+            Crypto Square est une application de jeu en ligne spécialisée dans les énigmes et défis de cryptographie.
+            Les
             joueurs peuvent explorer des missions, résoudre des casse-tête et rivaliser avec d'autres joueurs.
           </p>
         </section>
         <section>
           <h2>2. Accès au Service</h2>
           <ul>
-            <li><strong>Âge minimum :</strong> Vous devez avoir au moins 13 ans pour utiliser Crypto Squad. Si vous avez
+            <li><strong>Âge minimum :</strong> Vous devez avoir au moins 13 ans pour utiliser Crypto Square. Si vous
+              avez
               entre 13 et 18 ans, l'accord parental est nécessaire.</li>
             <li><strong>Inscription :</strong> Certaines fonctionnalités nécessitent la création d’un compte. Vous êtes
               responsable des informations fournies et de la sécurité de vos identifiants.</li>
@@ -26,11 +27,11 @@
         </section>
         <section>
           <h2>3. Règles d’utilisation</h2>
-          <p>En utilisant Crypto Squad, vous acceptez de :</p>
+          <p>En utilisant Crypto Square, vous acceptez de :</p>
           <ul>
             <li>Respecter les lois et réglementations en vigueur.</li>
             <li>Ne pas tenter de contourner ou compromettre les mesures de sécurité de l’application.</li>
-            <li>Ne pas utiliser Crypto Squad à des fins illicites, frauduleuses ou nuisibles.</li>
+            <li>Ne pas utiliser Crypto Square à des fins illicites, frauduleuses ou nuisibles.</li>
             <li>Respecter les autres joueurs et éviter tout comportement inapproprié, harcèlement ou diffamation.</li>
           </ul>
         </section>
@@ -38,13 +39,13 @@
           <h2>4. Propriété intellectuelle</h2>
           <p>
             Tous les éléments de l’application (textes, graphiques, logos, designs, etc.) sont la propriété exclusive de
-            Crypto Squad ou de ses partenaires.
+            Crypto Square ou de ses partenaires.
           </p>
         </section>
         <section>
           <h2>5. Responsabilités</h2>
           <p>
-            Crypto Squad s’efforce de fournir un accès continu à l’application, mais ne garantit pas l’absence
+            Crypto Square s’efforce de fournir un accès continu à l’application, mais ne garantit pas l’absence
             d’interruptions ou d’erreurs.
           </p>
         </section>
@@ -57,14 +58,14 @@
         <section>
           <h2>7. Modification des CGU</h2>
           <p>
-            Crypto Squad se réserve le droit de modifier les présentes CGU à tout moment. Les modifications seront
+            Crypto Square se réserve le droit de modifier les présentes CGU à tout moment. Les modifications seront
             communiquées via l’application ou par e-mail.
           </p>
         </section>
         <section>
           <h2>8. Résiliation</h2>
           <p>
-            Vous pouvez mettre fin à votre utilisation de Crypto Squad à tout moment. Crypto Squad se réserve le droit
+            Vous pouvez mettre fin à votre utilisation de Crypto Square à tout moment. Crypto Square se réserve le droit
             de
             suspendre ou de supprimer votre compte en cas de violation des CGU.
           </p>
@@ -75,7 +76,7 @@
             Pour toute question ou assistance, veuillez nous contacter à :
           </p>
           <ul>
-            <li><strong>E-mail :</strong> support@cryptosquad.com</li>
+            <li><strong>E-mail :</strong> support@cryptosquare.com</li>
           </ul>
         </section>
       </div>
