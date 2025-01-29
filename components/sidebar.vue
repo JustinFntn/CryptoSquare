@@ -2,10 +2,10 @@
   <div class="bg-neutral-100 dark:bg-neutral-900 py-4 h-screen flex flex-col">
     <div
       class="flex gap-2 items-center hover:bg-primary-200 mx-4 group dark:hover:bg-primary-900/50 px-4 rounded py-2 cursor-pointer">
-      <div class="bg-neutral-500 h-9 w-9 rounded-full border group-hover:border-primary-500 border-transparent"></div>
+      <UAvatar :src="user?.imageUrl || 'https://placehold.co/40x40'" />
       <div>
-        <p class="font-semibold text-primary-500">username</p>
-        <p class="text-sm text-neutral-500">email@example.com</p>
+        <p class="font-semibold text-primary-500">{{ user?.username || 'username' }}</p>
+        <p class="text-sm text-neutral-500">{{ user?.primaryEmailAddress.emailAddress || 'email@example.com' }}</p>
       </div>
     </div>
     <div class="flex-grow border-t mt-2 dark:border-neutral-800">
@@ -35,6 +35,7 @@
 
 <script setup>
 import { ref } from "vue"
+const { user } = useUser()
 
 const linksTop = ref([
   { label: "Home", icon: "i-lucide-house", link: "/dashboard" },
@@ -48,4 +49,8 @@ const linksButtom = ref([
   { label: "Preferences", icon: "i-lucide-settings", link: "/dashboard/preferences" },
   { label: "Help", icon: "i-lucide-circle-help", link: "/dashboard/help" },
 ])
+
+const links = ref([
+  { label: user.username, avatar: { src: user.avatar } },
+]);
 </script>
