@@ -9,7 +9,7 @@ export interface Challenge {
   difficulty: string
   content: string
   basePoints: number
-  clues: { textEnigme: string; value: number }[]
+  clues: { difficulty: string; textEnigme: string; value: number }[]
   answer: string
 }
 

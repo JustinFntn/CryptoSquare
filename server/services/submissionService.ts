@@ -7,7 +7,7 @@ export interface Submission {
   userId: string
   challengeId: string
   status: string
-  hintsUsed: number
+  hintsUsed: { hintType: string }[]
   attemptCount: number
   pointsEarned: number
 }
@@ -35,7 +35,7 @@ export async function createSubmissionInDB(data: Partial<Submission>): Promise<S
     userId: data.userId,
     challengeId: data.challengeId,
     status: data.status,
-    hintsUsed: data.hintsUsed ?? 0,
+    hintsUsed: data.hintsUsed ?? [],
     attemptCount: data.attemptCount ?? 0,
     pointsEarned: data.pointsEarned ?? 0,
   }
