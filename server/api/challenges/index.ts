@@ -22,11 +22,19 @@ export default defineEventHandler(async (event) => {
     try {
       const body = await readBody(event)
 
-      if (!body.title || !body.subtitle || !body.difficulty || !body.content || !body.basePoints || !body.clues) {
+      if (
+        !body.title ||
+        !body.subtitle ||
+        !body.difficulty ||
+        !body.content ||
+        !body.basePoints ||
+        !body.clues ||
+        !body.answer
+      ) {
         throw createError({
           statusCode: 400,
           statusMessage: "Bad Request",
-          message: "All fields are required to create a challenge",
+          message: "All fields are required, including 'answer'",
           stack: undefined,
         })
       }

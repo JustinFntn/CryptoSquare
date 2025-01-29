@@ -10,6 +10,7 @@ export interface Challenge {
   content: string
   basePoints: number
   clues: { textEnigme: string; value: number }[]
+  answer: string
 }
 
 export async function getAllChallengesFromDB(): Promise<Challenge[]> {
@@ -18,28 +19,39 @@ export async function getAllChallengesFromDB(): Promise<Challenge[]> {
 }
 
 export async function createChallengeInDB(data: Partial<Challenge>): Promise<Challenge> {
-  if (!data.title || !data.subtitle || !data.difficulty || !data.content || !data.basePoints || !data.clues) {
+  if (
+    !data.title ||
+    !data.subtitle ||
+    !data.difficulty ||
+    !data.content ||
+    !data.basePoints ||
+    !data.clues ||
+    !data.answer
+  ) {
     throw createError({
       statusCode: 400,
       statusMessage: "Bad Request",
-      message: "All fields are required",
+      message: "All fields are required, including 'answer'",
       stack: undefined,
     })
   }
 
   const db = await useMongo()
+  const challengesCollection = db.collection<Challenge>("challenges")
+
   const newChallenge: Challenge = {
-    _id: new ObjectId(),
+    _id: data._id,
     title: data.title,
     subtitle: data.subtitle,
     difficulty: data.difficulty,
     content: data.content,
     basePoints: data.basePoints,
     clues: data.clues,
+    answer: data.answer,
   }
 
-  const result = await db.collection<Challenge>("challenges").insertOne(newChallenge)
-  return { ...newChallenge, _id: result.insertedId }
+  await challengesCollection.insertOne(newChallenge)
+  return newChallenge
 }
 
 export async function getChallengeByIdFromDB(id: string): Promise<Challenge | null> {
