@@ -7,7 +7,7 @@ export interface Submission {
   userId: string
   challengeId: string
   status: string
-  hintsUsed: number
+  hintsUsed: { hintType: string }[]
   attemptCount: number
   pointsEarned: number
 }
@@ -35,7 +35,7 @@ export async function createSubmissionInDB(data: Partial<Submission>): Promise<S
     userId: data.userId,
     challengeId: data.challengeId,
     status: data.status,
-    hintsUsed: data.hintsUsed ?? 0,
+    hintsUsed: data.hintsUsed ?? [],
     attemptCount: data.attemptCount ?? 0,
     pointsEarned: data.pointsEarned ?? 0,
   }
@@ -55,8 +55,20 @@ export async function getSubmissionByIdFromDB(id: string): Promise<Submission | 
       stack: undefined,
     })
   }
-
   return db.collection<Submission>("submissions").findOne({ _id: new ObjectId(id) })
+}
+
+export async function getSubmissionByUserIdFromDB(userId: string): Promise<Submission[]> {
+  const db = await useMongo()
+  return db.collection<Submission>("submissions").find({ userId }).toArray()
+}
+
+export async function getSubmissionByUserIdFromDBAndChallengeId(
+  userId: string,
+  challengeId: string
+): Promise<Submission[]> {
+  const db = await useMongo()
+  return db.collection<Submission>("submissions").find({ userId, challengeId }).toArray()
 }
 
 export async function updateSubmissionInDB(id: string, data: Partial<Submission>): Promise<Submission> {
