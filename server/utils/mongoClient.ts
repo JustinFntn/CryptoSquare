@@ -1,7 +1,6 @@
 import { MongoClient, Db } from "mongodb"
 
-const uri =
-  process.env.MONGO_URI || "mongodb://cryptoadmin:KFfskkFpplqlcka@localhost:27017/cryptoSquare?authSource=admin"
+const uri = process.env.MONGO_URI || ""
 let client: MongoClient
 let db: Db
 
