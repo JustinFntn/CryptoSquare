@@ -1,0 +1,20 @@
+meta {
+  name: Create User
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{BaseUrl}}/api/users
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "clerkUserId": "MeowMeowUser",
+    "username": "Meow :3",
+    "email": "meow@meowmeow.com"
+  }
+  
+}

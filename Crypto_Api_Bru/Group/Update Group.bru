@@ -1,0 +1,19 @@
+meta {
+  name: Update Group
+  type: http
+  seq: 3
+}
+
+put {
+  url: {{BaseUrl}}/api/groups/6798dfe62a0c2fa450eb697e
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+      "name": "Team Beta",
+      "description": "Nouvelle description",
+      "image":"Url image"
+  }
+}

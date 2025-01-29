@@ -1,0 +1,18 @@
+meta {
+  name: Update User
+  type: http
+  seq: 4
+}
+
+put {
+  url: {{BaseUrl}}/api/users/6798dae04c403f16e074b99e
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "username": "AliceUpdated",
+    "email": "meowmeow@gmail.com"
+  }
+}
