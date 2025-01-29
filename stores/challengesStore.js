@@ -2,45 +2,32 @@ import { defineStore } from "pinia"
 
 export const useChallengesStore = defineStore("challenges", {
   state: () => ({
-    challenges: [
-      {
-        id: 1,
-        title: "Challenge 1",
-        difficulty: "easy",
-        description: "Introduction to Crypto",
-        content: "Solve this basic cryptography puzzle.",
-        requestedAnswer: "answer1",
-        isCompleted: false,
-      },
-      {
-        id: 2,
-        title: "Justin mange mes couilles",
-        difficulty: "medium",
-        description: "Intermediate Crypto",
-        content: "Solve this intermediate cryptography puzzle.",
-        requestedAnswer: "answer2",
-        isCompleted: false,
-      },
-      {
-        id: 3,
-        title: "Challenge 3",
-        difficulty: "hard",
-        description: "Advanced Crypto",
-        content: "Solve this advanced cryptography puzzle.",
-        requestedAnswer: "answer3",
-        isCompleted: false,
-      },
-    ],
+    challenges: [],
+    isLoaded: false, // Empêche de refetch plusieurs fois
+    errorMessage: null, // Gère les erreurs
   }),
   actions: {
-    addChallenge(challenge) {
-      this.challenges.push(challenge)
-    },
-    removeChallenge(index) {
-      this.challenges.splice(index, 1)
-    },
-    clearChallenges() {
-      this.challenges = []
+    async fetchChallenges() {
+      if (this.isLoaded) return
+      try {
+        const response = await fetch("http://localhost:3000/api/challenges")
+        if (!response.ok) throw new Error(`Erreur HTTP: ${response.status}`)
+
+        const data = await response.json()
+        console.log("Données récupérées :", data) // Vérifier le format des données
+
+        // Extraire uniquement les défis
+        if (!Array.isArray(data.challenges)) {
+          throw new Error("Les données reçues ne contiennent pas un tableau de défis")
+        }
+
+        this.challenges = data.challenges
+        this.isLoaded = true
+        this.errorMessage = null
+      } catch (err) {
+        console.error("Erreur lors de la récupération des défis :", err.message)
+        this.errorMessage = "Impossible de charger les défis. Réessayez plus tard."
+      }
     },
   },
   getters: {
@@ -48,8 +35,8 @@ export const useChallengesStore = defineStore("challenges", {
     getChallengesByDifficulty: (state) => (difficulty) => {
       return state.challenges.filter((challenge) => challenge.difficulty === difficulty)
     },
-    getCompletedChallenges: (state) => {
-      return state.challenges.filter((challenge) => challenge.isCompleted)
+    getChallengeById: (state) => (id) => {
+      return state.challenges.find((challenge) => challenge._id === id)
     },
   },
 })

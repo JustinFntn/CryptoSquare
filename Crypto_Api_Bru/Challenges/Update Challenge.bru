@@ -1,0 +1,23 @@
+meta {
+  name: Update Challenge
+  type: http
+  seq: 4
+}
+
+put {
+  url: {{BaseUrl}}/api/challenges/:id
+  body: json
+  auth: none
+}
+
+params:path {
+  id: 679a29f92dd91d9364c5bdc3
+}
+
+body:json {
+  {
+      "title": "Crypto Avancé",
+      "subtitle": "Approfondissement des concepts cryptographiques",
+      "difficulty": "medium"
+    }
+}

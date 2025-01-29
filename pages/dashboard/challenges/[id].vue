@@ -1,35 +1,43 @@
 <script setup>
-import { marked } from 'marked';
+import { useChallengeStore } from '@/stores/challengeStore';
+import { useRoute } from 'vue-router';
 
-const markdownContent = ref('');
+const clueValue = ref(0);
 
-onMounted(async () => {
-    const rawMd = await $fetch('/challenges/example.md'); // Charger le fichier .md
-    markdownContent.value = marked(rawMd); // Convertir le Markdown en HTML
+const challengeStore = useChallengeStore();
+const route = useRoute();
+
+// Vérification et conversion de l'ID du challenge
+const challengeId = computed(() => route.params.id || null);
+
+// Vérifier si l'ID est bien défini avant de récupérer les données du challenge
+const challengeData = computed(() => {
+  return challengeId.value ? challengeStore.fetchChallengeById(challengeId.value) || {} : {};
 });
 
 definePageMeta({
-    layout: 'user'
+  layout: 'user'
 });
 
-const value = ref('')
+// Fonction pour valider l'utilisation d'un indice
+const useClue = () => {
+  console.log(`Using clue level ${clueValue.value}, -${clueValue.value * 10} points`);
+  isOpen.value = false; // Fermer la modale après confirmation
+};
+
+const confirmClue = (clueID) => {
+  console.log('clue confirmed', clueID)
+}
+
 </script>
 
 <template>
-    <div class="h-full w-full">
-        <!-- Contenu Markdown avec un padding inférieur pour éviter le chevauchement -->
-        <div class="prose max-w-none p-4 pb-36 md:pb-40" v-html="markdownContent"></div>
+  <div class="h-full w-full relative">
+    <DashboardChallengesContent :content="challengeData.content" />
 
-        <!-- Élément fixe en bas de la page -->
-        <div
-            class="fixed flex bottom-0 w-full h-28 border-t dark:bg-neutral-900 bg-neutral-100 px-4 py-4 dark:border-neutral-800">
-            <div>
-                <h1 class="font-semibold text-lg">Answers area</h1>
-                <div class="w-96 text-neutral-50 flex gap-2">
-                    <UInput v-model="value" class="text-white-50" />
-                    <UButton label="Submit" />
-                </div>
-            </div>
-        </div>
+    <div class="absolute bottom-4 flex z-10 w-full justify-between px-4">
+      <DashboardChallengesInput @use-clue="(level) => { isOpen = true; clueValue = level }" />
+      <DashboardChallengesScore />
     </div>
+  </div>
 </template>

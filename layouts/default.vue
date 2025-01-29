@@ -2,5 +2,6 @@
   <UApp>
     <Navbar />
     <NuxtPage />
-  </UApp>
+    <Footer />
+  </UApp> 
 </template>

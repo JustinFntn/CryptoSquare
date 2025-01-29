@@ -15,7 +15,7 @@
     </div>
   </div>
   <div class="flex justify-center mt-[-300px]">
-    <img src="https://placehold.co/800x600" class="rounded" alt="" />
+    <img src="/img/image.png" class="rounded w-[1000px] border border-primary-800" alt="" />
     <!-- TODO : Remplacer par une image de l'interface-->
   </div>
 </template>

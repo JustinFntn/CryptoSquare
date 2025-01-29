@@ -3,7 +3,6 @@ export default defineAppConfig({
     primary: "deepblue",
     secondary: "neonblue",
     accent: "mauve",
-    text: "white",
-    background: "black",
+    gray: "black",
   },
 })

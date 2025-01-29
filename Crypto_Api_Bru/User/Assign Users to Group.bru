@@ -1,0 +1,18 @@
+meta {
+  name: Assign Users to Group
+  type: http
+  seq: 7
+}
+
+patch {
+  url: {{BaseUrl}}/api/users/group
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "groupId": "6798dfe62a0c2fa450eb697eeee",
+    "userIds": ["TEST", "ABCDEDFFA"]
+  }
+}
