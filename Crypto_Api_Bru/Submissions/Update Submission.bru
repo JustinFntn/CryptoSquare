@@ -1,0 +1,22 @@
+meta {
+  name: Update Submission
+  type: http
+  seq: 4
+}
+
+put {
+  url: {{BaseUrl}}/api/submissions/:id
+  body: json
+  auth: none
+}
+
+params:path {
+  id: 679a2acb29a9fc6108b1c636
+}
+
+body:json {
+  {
+    "status": "completed",
+    "pointsEarned": 50
+  }
+}

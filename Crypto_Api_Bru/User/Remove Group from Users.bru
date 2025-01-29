@@ -1,0 +1,17 @@
+meta {
+  name: Remove Group from Users
+  type: http
+  seq: 8
+}
+
+delete {
+  url: {{BaseUrl}}/api/users/group
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "userIds": ["ABCDEDFFA", "TEST"]
+  }
+}
