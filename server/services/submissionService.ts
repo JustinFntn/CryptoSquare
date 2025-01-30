@@ -30,6 +30,16 @@ export async function createSubmissionInDB(data: Partial<Submission>): Promise<S
   const db = await useMongo()
   const submissionsCollection = db.collection<Submission>("submissions")
 
+  const existingSubmission = await submissionsCollection.findOne({ userId: data.userId, challengeId: data.challengeId })
+  if (existingSubmission) {
+    throw createError({
+      statusCode: 409,
+      statusMessage: "Conflict",
+      message: `Submission already exists for userId '${data.userId}' and challengeId '${data.challengeId}'`,
+      stack: undefined,
+    })
+  }
+
   const newSubmission: Submission = {
     _id: new ObjectId(),
     userId: data.userId,
