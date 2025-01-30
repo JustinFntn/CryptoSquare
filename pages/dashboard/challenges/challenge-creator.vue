@@ -28,11 +28,11 @@
       </UFormGroup>
 
       <UFormGroup label="Difficulty" name="difficulty">
-        <UInput v-model="state.difficulty" />
+        <USelect v-model="state.difficulty" :options="['easy', 'medium', 'hard']" />
       </UFormGroup>
 
       <UFormGroup label="Content" name="content">
-        <UInput v-model="state.content" />
+        <UTextarea autoresize :maxrows="8" placeholder="Add text (markdown format supported)" v-model="state.content" />
       </UFormGroup>
 
       <UFormGroup label="Base Points" name="basePoints">
@@ -59,11 +59,6 @@
 <script setup lang="ts">
 import { z } from 'zod'
 import type { FormSubmitEvent } from '#ui/types'
-// import { parse } from 'yaml';
-// const parse = require('yaml').parse;
-// const parse = (_: any) => ({});
-// import * as YAML from 'yaml';
-// const parse = YAML.parse;
 let parse: (input: string) => any;
 
 if (import.meta.client) {
@@ -98,46 +93,68 @@ const state = ref<Schema>({
   difficulty: '',
   content: '',
   basePoints: 0,
-  clues: [],
+  clues: [{
+    difficulty: 'easy',
+    textEnigme: 'Clue 1',
+    value: 10
+  },
+  {
+    difficulty: 'medium',
+    textEnigme: 'Clue 2',
+    value: 20
+  },
+  {
+    difficulty: 'hard',
+    textEnigme: 'Clue 3',
+    value: 30
+  },],
   answer: ''
 })
 
 async function onSubmit(event: FormSubmitEvent<Schema>) {
   // TODO - Ajouter l'appel API pour créer le challenge
-  console.log(event.data)
+
+  // console.log(JSON.stringify(event.data));
+
+  await fetch('http://localhost:3000/api/challenges', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(event.data)
+  })
 }
 
 async function onFileUpload(event: Event) {
-  console.log("TEST FILE UPLOADED");
+  // console.log("TEST FILE UPLOADED");
 
   const input = event.target as HTMLInputElement;
-  console.log(input);
+  // console.log(input);
   const file = input.files?.[0];
-  console.log(file);
+  // console.log(file);
 
   if (!file) return;
-  if (file.type !== "text/markdown") {
-    return;
-  }
+  // if (file.type !== "text/markdown") {
+  //   console.error("Invalid file type. Please upload a Markdown file.");
+  //   console.log(file.type);
+  //   return;
+  // }
 
-  const content = await readFileAsText(file);
-  console.log(content);
+  const mdContent = await readFileAsText(file);
+  // console.log(mdContent);
 
-  const data = content.split('---')[1]?.trim();
+  const data = mdContent.split('---')[1]?.trim();
   if (!data) return;
 
-  console.log(data);
+  // console.log(data);
 
   try {
     const challenge = parse(data) as Schema;
-    console.log(challenge);
-    // Instead of replacing the entire `state` object, update properties individually
+    challenge.content = mdContent.split('---').slice(2).join('---').trim();
     Object.assign(state.value, challenge);
 
     // Ensure clues update reactively
     if (challenge.clues) {
-      console.log("Updating clues");
-      console.log(challenge.clues);
       state.value.clues = [...challenge.clues];
     }
   } catch (error) {
@@ -160,25 +177,37 @@ function downloadTemplate() {
     `---
 title: Challenge Title
 subtitle: Challenge Subtitle
-difficulty: Challenge Difficulty
+difficulty: easy
 content: Challenge Content
 basePoints: 100
 clues:
-  - difficulty: Easy
+  - difficulty: easy
     textEnigme: Clue 1
     value: 10
-  - difficulty: Medium
+  - difficulty: medium
     textEnigme: Clue 2
     value: 20
-  - difficulty: Hard
+  - difficulty: hard
     textEnigme: Clue 3
     value: 30
 
 answer: Challenge Answer
 ---
 
-Challenge Description
-`
+## Challenge Title
+
+This is a very cool challenge! Set in an interesting location, it will test your skills and knowledge :)
+
+There could be multiple paragraphs as well as some \`formatted text\`, *emphasized instructions*, and **important notes**.
+
+### Get started
+
+1. Read the challenge description
+2. Solve the clues
+
+### Clues
+
+If you don't know some important knowledge, search on [Google](https://www.google.com) for more information.`
 
   const blob = new Blob([template], { type: 'text/markdown' })
   const url = URL.createObjectURL(blob)
