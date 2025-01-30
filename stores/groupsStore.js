@@ -14,19 +14,16 @@ export const useGroupsStore = defineStore("groups", {
       this.isLoaded = false
 
       try {
-        console.log(`🔵 Récupération des données du groupe ${groupId}...`)
-
         const groupResponse = await fetch(`http://localhost:3000/api/groups/${groupId}`)
         if (!groupResponse.ok) throw new Error("Erreur lors de la récupération du groupe")
 
         const groupData = await groupResponse.json()
-        console.log("📌 Données du groupe récupérées :", groupData)
 
         if (!groupData.group) {
           throw new Error("Données du groupe mal formattées")
         }
 
-        this.groupData = groupData.group // ✅ Stocke uniquement l'objet `group`
+        this.groupData = groupData.group
 
         const membersResponse = await fetch(`http://localhost:3000/api/groups/members/${groupId}`)
         if (!membersResponse.ok) throw new Error("Erreur lors de la récupération des membres")
@@ -35,27 +32,20 @@ export const useGroupsStore = defineStore("groups", {
         this.members = membersData.members
 
         this.scores = await this.fetchGroupScores(groupId)
-
-        console.log("✅ Groupe chargé avec succès !")
       } catch (error) {
         console.error("❌ Erreur lors du chargement du groupe :", error)
       } finally {
         this.isLoaded = true
-        console.log("✅ Chargement terminé, isLoaded =", this.isLoaded)
       }
     },
 
     async fetchGroupMembers(groupId) {
       try {
-        console.log(`🔵 Récupération des membres du groupe ${groupId}...`)
-
         const response = await fetch(`http://localhost:3000/api/groups/members/${groupId}`)
         if (!response.ok) throw new Error("Impossible de récupérer les membres")
 
         const data = await response.json()
         this.members = data.members
-
-        console.log("✅ Membres du groupe récupérés :", this.members)
       } catch (error) {
         console.error("❌ Erreur lors du chargement des membres :", error)
       }
@@ -63,33 +53,26 @@ export const useGroupsStore = defineStore("groups", {
 
     async fetchGroupScores(groupId) {
       try {
-        console.log(`📊 Chargement des scores pour le groupe ${groupId}...`)
         const scores = { easy: 0, medium: 0, hard: 0 }
 
-        // Récupérer les membres
         const membersResponse = await fetch(`http://localhost:3000/api/groups/members/${groupId}`)
         if (!membersResponse.ok) throw new Error("Erreur lors de la récupération des membres")
 
         const membersData = await membersResponse.json()
 
         if (!membersData || !Array.isArray(membersData.members)) {
-          console.error("❌ L'API n'a pas renvoyé un tableau de membres :", membersData)
           return scores
         }
 
-        const members = membersData.members // ✅ Prend seulement la liste des membres
+        const members = membersData.members
         console.log("✅ Membres du groupe récupérés :", members)
 
         console.log("✅ Membres du groupe récupérés :", members)
 
-        // Récupérer toutes les soumissions des membres
         for (const member of members) {
           if (!member._id) {
-            console.warn("⚠️ Membre sans ID, ignoré :", member)
             continue
           }
-
-          console.log(`🟡 Récupération des soumissions pour ${member.username} (ID: ${member._id})...`)
 
           const submissionsResponse = await fetch(`http://localhost:3000/api/submissions/user/${member._id}`)
           if (!submissionsResponse.ok) continue
@@ -100,11 +83,9 @@ export const useGroupsStore = defineStore("groups", {
             continue
           }
 
-          // Filtrer les soumissions complétées
           const completedSubmissions = submissionsData.submissions.filter((sub) => sub.status === "completed")
           console.log("✔️ Soumissions complétées :", completedSubmissions)
-
-          // Récupérer la difficulté des challenges et compter les scores
+          s
           for (const submission of completedSubmissions) {
             if (!submission.challengeId) {
               console.warn("⚠️ Soumission sans challengeId, ignorée :", submission)
@@ -120,18 +101,15 @@ export const useGroupsStore = defineStore("groups", {
               continue
             }
 
-            console.log(`📌 Challenge récupéré (${submission.challengeId}):`, challengeData)
-
             scores[challengeData.difficulty]++
           }
         }
 
-        console.log("🏆 Scores calculés :", scores)
         this.scores = scores
         return scores
       } catch (error) {
         console.error("❌ Erreur lors du chargement des scores :", error)
-        return { easy: 0, medium: 0, hard: 0 } // Retourne un score vide en cas d'erreur
+        return { easy: 0, medium: 0, hard: 0 }
       }
     },
 

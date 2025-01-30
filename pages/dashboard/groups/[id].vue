@@ -63,13 +63,10 @@ const groupsStore = useGroupsStore();
 const scores = ref({ easy: 0, medium: 0, hard: 0 });
 
 const fetchScores = async () => {
-  console.log("📌 Chargement des scores pour le groupe ${ route.params.id }...");
-
   const groupScores = await groupsStore.fetchGroupScores(route.params.id);
 
   if (groupScores) {
     scores.value = groupScores;
-    console.log("📊 Résumé des scores du groupe mis à jour :", scores.value);
   } else {
     console.warn("⚠️ Impossible de charger les scores !");
   }
