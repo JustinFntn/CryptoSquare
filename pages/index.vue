@@ -11,11 +11,27 @@
       Learn to be the best you can be through cryptography tests. Be the best among other users
     </p>
     <div class="flex justify-center mt-6">
-      <UButton label="Start the adventure" variant="outline" />
+      <SignedOut>
+        <UButton label="Start the adventure" variant="outline" @click="signIn()" />
+      </SignedOut>
+      <SignedIn>
+        <UButton label="Start the adventure" variant="outline" to="/dashboard" />
+      </SignedIn>
     </div>
   </div>
   <div class="flex justify-center mt-[-300px]">
     <img src="/img/image.png" class="rounded w-[1000px] border border-primary-800" alt="" />
     <!-- TODO : Remplacer par une image de l'interface-->
   </div>
+  <SignInButton ref="signInButton" class="hidden" mode="modal" />
 </template>
+
+<script setup>
+import { ref } from 'vue'
+
+const signInButton = ref(null)
+
+const signIn = () => {
+  signInButton.value.$el.click()
+}
+</script>

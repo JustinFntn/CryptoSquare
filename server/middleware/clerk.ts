@@ -2,12 +2,10 @@ import { clerkMiddleware } from "@clerk/nuxt/server"
 
 export default clerkMiddleware((event) => {
   const { userId } = event.context.auth
-  const isAdminRoute = event.path.startsWith("/api/admin")
-
-  if (!userId && isAdminRoute) {
-    throw createError({
-      statusCode: 401,
-      statusMessage: "Unauthorized: User not signed in",
-    })
+  const needAuth = event.path.startsWith("/dashboard")
+  
+  if (!userId && needAuth) {
+    // redirect to home
+    return sendRedirect(event, "/")
   }
 })

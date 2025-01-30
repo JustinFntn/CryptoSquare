@@ -1,7 +1,7 @@
 <template>
   <div class="flex min-h-screen w-full overflow-x-hidden">
     <!-- Sidebar fixe -->
-    <div class="h-screen w-64 bg-gray-800 text-white fixed">
+    <div class="h-screen bg-gray-800 text-white fixed">
       <Sidebar />
     </div>
 
@@ -14,3 +14,19 @@
     <ThemeSelector :is-fixed="true" />
   </div>
 </template>
+
+<script setup>
+import { useUser } from "@clerk/vue";
+import { ref, watchEffect } from "vue";
+import { useUserStore } from "@/stores/userStore"; // Assure-toi du bon chemin
+
+const { user, isSignedIn, isLoaded } = useUser();
+const userStore = useUserStore();
+
+watchEffect(() => {
+  if (isLoaded.value && isSignedIn.value && user.value) {
+    const userId = user.value.id;
+    userStore.fetchOrCreateUser(userId);
+  }
+});
+</script>
