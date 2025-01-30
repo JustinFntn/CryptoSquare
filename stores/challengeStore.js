@@ -56,7 +56,9 @@ export const useChallengeStore = defineStore("challengeStore", {
           console.log("✅ Submission existante trouvée :", data.submissions[0])
 
           this.submission = data.submissions[0]
-          this.userScore = this.submission.pointsEarned || this.userScore
+          this.userScore = this.submission.pointsEarned
+          console.log("🎯 userScore mis à jour :", this.submission.pointsEarned)
+          console.log("🎯 userScore mis à jour :", this.userScore)
           this.cluesUsed = Array.isArray(this.submission.hintsUsed) ? this.submission.hintsUsed : []
 
           this.isChallengeCompleted = this.submission.status === "completed"

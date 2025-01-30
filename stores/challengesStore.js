@@ -5,6 +5,7 @@ export const useChallengesStore = defineStore("challengesStore", {
     isLoaded: false, // ✅ Indique si les challenges sont chargés
     isSubmissionsLoaded: false, // ✅ Indique si les submissions sont chargées
     errorMessage: null,
+    userScore: 0,
   }),
 
   actions: {
@@ -30,9 +31,13 @@ export const useChallengesStore = defineStore("challengesStore", {
         const data = await response.json()
         this.submissions = data.submissions || []
         this.isSubmissionsLoaded = true
+
+        this.userScore =
+          this.submissions.length > 0 ? this.submissions.reduce((total, sub) => total + (sub.pointsEarned || 0), 0) : 0
       } catch (err) {
         console.error("Erreur lors du chargement des submissions:", err.message)
         this.submissions = []
+        this.userScore = 0
       }
     },
   },
