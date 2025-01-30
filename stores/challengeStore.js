@@ -157,15 +157,14 @@ export const useChallengeStore = defineStore("challengeStore", {
       if (!this.challenge) return
 
       if (userAnswer.trim().toLowerCase() === this.challenge.answer.toLowerCase()) {
-        this.showVictoryModal = true
-        this.isChallengeCompleted = true
+        this.showVictoryModal = true // Mettre à jour l'état pour afficher la modal
+        this.isChallengeCompleted = true // Le défi est terminé
 
         // ✅ Mettre à jour le statut de la submission
         this.submission.status = "completed"
-
         console.log("🎉 Réponse correcte ! Statut mis à jour en 'completed'")
 
-        this.updateSubmission() // ✅ Met à jour la soumission en base de données
+        this.updateSubmission() // Met à jour la soumission en base de données
       } else {
         this.submission.attemptCount = (this.submission.attemptCount || 0) + 1
         const penalty = this.submission.attemptCount * 5
@@ -174,7 +173,7 @@ export const useChallengeStore = defineStore("challengeStore", {
         this.userScore = Math.max(0, this.userScore - penalty)
 
         alert(`Mauvaise réponse ❌ ! -${penalty} points. Réessaie.`)
-        this.updateSubmission() // ✅ Met à jour la soumission après tentative
+        this.updateSubmission() // Met à jour la soumission après tentative
       }
     },
   },

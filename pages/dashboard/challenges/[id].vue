@@ -7,10 +7,22 @@ import Markdown from "vue3-markdown-it";
 const challengeStore = useChallengeStore();
 const route = useRoute();
 
+const router = useRouter();
+
 const clueValue = ref(0);
 const isOpen = ref(false);
 
 const challengeId = computed(() => route.params.id || null);
+
+function closeVictoryModal() {
+  challengeStore.showVictoryModal = false;
+}
+
+function returnToChallenges() {
+  challengeStore.showVictoryModal = false;
+  router.push("/dashboard/challenges");
+}
+
 
 watchEffect(() => {
   if (challengeId.value) {
@@ -49,6 +61,17 @@ definePageMeta({
         <DashboardChallengesInput :isReviewMode="isReviewMode" />
         <DashboardChallengesScore />
       </div>
+      <!-- Modal de victoire -->
+      <UModal :model-value="challengeStore.showVictoryModal" @update:model-value="closeVictoryModal">
+        <div class="p-6 text-center">
+          <h1 class="text-2xl font-bold text-green-500">🎉 Félicitations ! 🎉</h1>
+          <p class="mt-4 text-white">Tu as trouvé la bonne réponse !</p>
+          <div class="flex gap-4 justify-center mt-6">
+            <UButton label="Retour aux challenges" color="green" icon="i-lucide-home" @click="returnToChallenges" />
+            <UButton label="Fermer" color="red" icon="i-lucide-x" @click="closeVictoryModal" />
+          </div>
+        </div>
+      </UModal>
     </div>
     <div v-else>
       <p class="text-red-500">Challenge introuvable ❌</p>
