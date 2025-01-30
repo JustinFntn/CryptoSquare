@@ -1,0 +1,15 @@
+meta {
+  name: Get all submissions for a user
+  type: http
+  seq: 6
+}
+
+get {
+  url: {{BaseUrl}}/api/submissions/user/:id
+  body: none
+  auth: none
+}
+
+params:path {
+  id: TEST
+}
