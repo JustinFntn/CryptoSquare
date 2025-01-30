@@ -3,6 +3,7 @@ module.exports = {
     extend: {
       colors: {
         white: {
+          DEFAULT: "#ffffff",
           50: "#f0f2f4",
           100: "#e1e4ea",
           200: "#c3c9d5",
@@ -16,6 +17,7 @@ module.exports = {
           950: "#0b0c0f",
         },
         black: {
+          DEFAULT: "#000000",
           50: "#f0f2f4",
           100: "#e1e5ea",
           200: "#c4cad4",

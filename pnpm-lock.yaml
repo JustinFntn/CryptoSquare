@@ -50,6 +50,12 @@ importers:
       vue-router:
         specifier: latest
         version: 4.5.0(vue@3.5.13(typescript@5.7.3))
+      yaml:
+        specifier: ^2.7.0
+        version: 2.7.0
+      zod:
+        specifier: ^3.24.1
+        version: 3.24.1
     devDependencies:
       '@commitlint/cli':
         specifier: ^19.6.1
@@ -63,9 +69,6 @@ importers:
       '@primevue/nuxt-module':
         specifier: ^4.2.5
         version: 4.2.5(@babel/parser@7.26.7)(magicast@0.3.5)(rollup@4.32.0)(vue@3.5.13(typescript@5.7.3))
-      '@types/mongodb':
-        specifier: ^4.0.7
-        version: 4.0.7
       husky:
         specifier: ^9.1.7
         version: 9.1.7
@@ -1013,10 +1016,6 @@ packages:
 
   '@types/http-proxy@1.17.15':
     resolution: {integrity: sha512-25g5atgiVNTIv0LBDTg1H74Hvayx0ajtJPLLcYE3whFv75J0pWNtOBzaXJQgDTmrX1bx5U9YC2w/n65BN1HwRQ==}
-
-  '@types/mongodb@4.0.7':
-    resolution: {integrity: sha512-lPUYPpzA43baXqnd36cZ9xxorprybxXDzteVKCPAdp14ppHtFJHnXYvNpmBvtMUTb5fKXVv6sVbzo1LHkWhJlw==}
-    deprecated: mongodb provides its own types. @types/mongodb is no longer needed.
 
   '@types/node@22.10.10':
     resolution: {integrity: sha512-X47y/mPNzxviAGY5TcYPtYL8JsY3kAq2n8fMmKoRCxq/c4v4pyGNCzM2R6+M5/umG4ZfHuT+sgqDYqWc9rJ6ww==}
@@ -4071,6 +4070,9 @@ packages:
     resolution: {integrity: sha512-zK7YHHz4ZXpW89AHXUPbQVGKI7uvkd3hzusTdotCg1UxyaVtg0zFJSTfW/Dq5f7OBBVnq6cZIaC8Ti4hb6dtCA==}
     engines: {node: '>= 14'}
 
+  zod@3.24.1:
+    resolution: {integrity: sha512-muH7gBL9sI1nciMZV67X5fTKKBLtwpZ5VBp1vsOQzj1MhrBZ4wlVCm3gedKZWLp0Oyel8sIGfeiz54Su+OVT+A==}
+
 snapshots:
 
   '@alloc/quick-lru@5.2.0': {}
@@ -5296,18 +5298,6 @@ snapshots:
   '@types/http-proxy@1.17.15':
     dependencies:
       '@types/node': 22.10.10
-
-  '@types/mongodb@4.0.7':
-    dependencies:
-      mongodb: 6.12.0
-    transitivePeerDependencies:
-      - '@aws-sdk/credential-providers'
-      - '@mongodb-js/zstd'
-      - gcp-metadata
-      - kerberos
-      - mongodb-client-encryption
-      - snappy
-      - socks
 
   '@types/node@22.10.10':
     dependencies:
@@ -8547,3 +8537,5 @@ snapshots:
       archiver-utils: 5.0.2
       compress-commons: 6.0.2
       readable-stream: 4.7.0
+
+  zod@3.24.1: {}
