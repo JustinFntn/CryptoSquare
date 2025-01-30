@@ -1,17 +1,7 @@
 import { ObjectId } from "mongodb"
 import { useMongo } from "~/server/utils/mongoClient"
 import { createError } from "h3"
-
-export interface Challenge {
-  _id?: ObjectId
-  title: string
-  subtitle: string
-  difficulty: string
-  content: string
-  basePoints: number
-  clues: { difficulty: string; textEnigme: string; value: number }[]
-  answer: string
-}
+import { Challenge } from "../../types/Challenge"
 
 export async function getAllChallengesFromDB(): Promise<Challenge[]> {
   const db = await useMongo()
