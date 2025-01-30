@@ -15,6 +15,18 @@
   </div>
 </template>
 
-<script setup lang="ts">
-//
+<script setup>
+import { useUser } from "@clerk/vue";
+import { ref, watchEffect } from "vue";
+import { useUserStore } from "@/stores/userStore"; // Assure-toi du bon chemin
+
+const { user, isSignedIn, isLoaded } = useUser();
+const userStore = useUserStore();
+
+watchEffect(() => {
+  if (isLoaded.value && isSignedIn.value && user.value) {
+    const userId = user.value.id;
+    userStore.fetchOrCreateUser(userId);
+  }
+});
 </script>
