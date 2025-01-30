@@ -1,42 +1,59 @@
-import { defineStore } from "pinia"
-
-export const useChallengesStore = defineStore("challenges", {
+export const useChallengesStore = defineStore("challengesStore", {
   state: () => ({
     challenges: [],
-    isLoaded: false, // Empêche de refetch plusieurs fois
-    errorMessage: null, // Gère les erreurs
+    submissions: [],
+    isLoaded: false, // ✅ Indique si les challenges sont chargés
+    isSubmissionsLoaded: false, // ✅ Indique si les submissions sont chargées
+    errorMessage: null,
   }),
+
   actions: {
     async fetchChallenges() {
-      if (this.isLoaded) return
       try {
         const response = await fetch("http://localhost:3000/api/challenges")
         if (!response.ok) throw new Error(`Erreur HTTP: ${response.status}`)
 
         const data = await response.json()
-        console.log("Données récupérées :", data) // Vérifier le format des données
-
-        // Extraire uniquement les défis
-        if (!Array.isArray(data.challenges)) {
-          throw new Error("Les données reçues ne contiennent pas un tableau de défis")
-        }
-
-        this.challenges = data.challenges
+        this.challenges = data.challenges || []
         this.isLoaded = true
-        this.errorMessage = null
       } catch (err) {
-        console.error("Erreur lors de la récupération des défis :", err.message)
-        this.errorMessage = "Impossible de charger les défis. Réessayez plus tard."
+        console.error("Erreur lors du chargement des défis:", err.message)
+        this.errorMessage = "Impossible de charger les défis."
+      }
+    },
+
+    async fetchSubmissions(userId) {
+      try {
+        const response = await fetch(`http://localhost:3000/api/submissions/user/${userId}`)
+        if (!response.ok) throw new Error(`Erreur HTTP: ${response.status}`)
+
+        const data = await response.json()
+        this.submissions = data.submissions || []
+        this.isSubmissionsLoaded = true
+      } catch (err) {
+        console.error("Erreur lors du chargement des submissions:", err.message)
+        this.submissions = []
       }
     },
   },
+
   getters: {
     challengeCount: (state) => state.challenges.length,
+
     getChallengesByDifficulty: (state) => (difficulty) => {
       return state.challenges.filter((challenge) => challenge.difficulty === difficulty)
     },
+
     getChallengeById: (state) => (id) => {
       return state.challenges.find((challenge) => challenge._id === id)
+    },
+
+    getChallengesByStatus: (state) => (userId, status) => {
+      return state.challenges.filter((challenge) => {
+        const submission = state.submissions.find((sub) => sub.challengeId === challenge._id && sub.userId === userId)
+        if (!submission) return status === "New" // Si pas de submission => New
+        return submission.status === status
+      })
     },
   },
 })

@@ -6,7 +6,7 @@
     </div>
 
     <!-- Zone principale (contenu des pages) -->
-    <div class="flex-1 ml-64 overflow-auto">
+    <div class="flex-1 pl-64 overflow-auto">
       <NuxtPage />
     </div>
 

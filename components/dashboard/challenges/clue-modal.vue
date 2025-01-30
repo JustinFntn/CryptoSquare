@@ -4,7 +4,7 @@ import { useChallengeStore } from "@/stores/challengeStore";
 import { useRoute } from "vue-router";
 
 const props = defineProps({
-    clueValue: String,
+    clueValue: Number,
     isOpen: Boolean
 });
 
@@ -13,7 +13,11 @@ const challengeStore = useChallengeStore();
 const route = useRoute();
 
 function confirmUseClue() {
+    console.log("Utilisation de l'indice :", props.clueValue);
     challengeStore.useClue(props.clueValue);
+    if (challengeStore.cluesUsed.includes(props.clueValue)) {
+        console.log("Indice utilisé avec succès !");
+    }
 }
 
 function closeModal() {
@@ -21,37 +25,44 @@ function closeModal() {
     emit("update:isOpen", false);
 }
 
-const challenge = computed(() =>
-    challengeStore.getChallengeById(route.params.id)
-);
+const challenge = computed(() => challengeStore.getChallengeById);
 
 const clueData = computed(() => {
-    if (!challenge.value) return { value: 0, clueLabel: "No clue available." };
-    const clue = challenge.value.clues.find((c) => c.id === props.clueValue);
-    return clue ? clue : { value: 0, clueLabel: "No clue available." };
+    if (!challenge.value || props.clueValue === null) return { value: 0, clueLabel: "No clue available." };
+
+    const clue = challenge.value.clues[props.clueValue]; // Récupère l'indice via l'index
+
+    return clue ? { value: clue.value, clueLabel: clue.textEnigme } : { value: 0, clueLabel: "No clue available." };
 });
+
+
 
 </script>
 
 <template>
     <UModal :model-value="isOpen" @update:model-value="$emit('update:isOpen', $event)">
         <div class="p-4">
-            <h1 class="text-xl font-semibold capitalize">{{ clueValue }} clue</h1>
+            <h1 class="text-xl font-semibold capitalize">Indice {{ clueValue }}</h1>
 
-            <h2 v-if="!challengeStore.cluesUsed.includes(clueValue)" class="my-2">
-                Are you sure you want to use this clue? You'll lose
-                <span class="font-semibold text-primary-500">{{ clueData.value }}</span>
+            <!-- ✅ Condition pour changer l'affichage une fois l'indice utilisé -->
+            <h2 v-if="!challengeStore.cluesUsed.some(c => c.hintType === clueValue.toString())" class="my-2">
+                Es-tu sûr de vouloir utiliser cet indice ? Tu perdras
+                <span class="font-semibold text-primary-500">{{ challengeStore.challenge.clues[clueValue].value
+                    }}</span>
                 points.
             </h2>
 
             <h2 v-else class="my-2">
-                <span class="font-semibold text-primary-500"> Clue : {{ clueData.clueLabel }} </span>
+                <span class="font-semibold text-primary-500">
+                    {{ challengeStore.challenge.clues[clueValue].textEnigme }}
+                </span>
             </h2>
 
             <div class="flex gap-3 w-full justify-end">
-                <UButton v-if="!challengeStore.cluesUsed.includes(clueValue)" label="Yes" icon="i-lucide-check"
-                    color="green" variant="ghost" @click="confirmUseClue" />
-                <UButton label="Close" icon="i-lucide-x" color="red" variant="ghost" @click="closeModal" />
+                <UButton v-if="!challengeStore.cluesUsed.some(c => c.hintType === clueValue.toString())" label="Yes"
+                    icon="i-lucide-check" color="green" variant="ghost" @click="confirmUseClue" />
+                <UButton label="Close" icon="i-lucide-x" color="red" variant="ghost"
+                    @click="$emit('update:isOpen', false)" />
             </div>
         </div>
     </UModal>
