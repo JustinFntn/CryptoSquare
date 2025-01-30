@@ -1,7 +1,7 @@
 <template>
   <div class="flex min-h-screen w-full overflow-x-hidden">
     <!-- Sidebar fixe -->
-    <div class="h-screen bg-gray-800 text-white fixed">
+    <div class="h-screen bg-gray-800 fixed">
       <Sidebar />
     </div>
 
@@ -30,4 +30,3 @@ watchEffect(() => {
   }
 });
 </script>
-

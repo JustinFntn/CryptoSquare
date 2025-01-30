@@ -29,7 +29,7 @@
             </p>
           </div>
           <div class="p-6 bg-white dark:bg-gray-900 rounded-lg shadow ring-1 ring-gray-200 dark:ring-gray-800">
-            <h2 class="text-2xl font-semibold text-primary-500">Challenges Réussis</h2>
+            <h2 class="text-2xl font-semibold text-primary-500">Completed Challenges</h2>
             <p class="text-neutral-500 dark:text-neutral-400 mt-2">
               You have completed {{ completedChallenges?.length ?? 0 }} challenges.
             </p>
