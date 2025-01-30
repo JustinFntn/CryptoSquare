@@ -41,7 +41,16 @@ definePageMeta({
 });
 
 // Filtrer les défis pour chaque niveau
-const easyChallenges = computed(() => challengesStore.getChallengesByDifficulty('easy'));
-const mediumChallenges = computed(() => challengesStore.getChallengesByDifficulty('medium'));
-const hardChallenges = computed(() => challengesStore.getChallengesByDifficulty('hard'));
+const easyChallenges = computed(() => {
+  return challengesStore.getChallengesByDifficulty('easy');
+});
+
+const mediumChallenges = computed(() => {
+  return challengesStore.getChallengesByDifficulty('medium');
+});
+
+const hardChallenges = computed(() => {
+  return challengesStore.getChallengesByDifficulty('hard');
+});
+
 </script>

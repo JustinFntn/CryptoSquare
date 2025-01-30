@@ -15,7 +15,7 @@ export const useChallengesStore = defineStore("challengesStore", {
 
         const data = await response.json()
         this.challenges = data.challenges || []
-        this.isLoaded = true
+        this.isLoaded = true // Mise à jour de isLoaded une fois les données récupérées
       } catch (err) {
         console.error("Erreur lors du chargement des défis:", err.message)
         this.errorMessage = "Impossible de charger les défis."

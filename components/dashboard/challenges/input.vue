@@ -22,11 +22,19 @@
                         <UButton icon="i-lucide-badge-help"
                             :color="index === 0 ? 'green' : index === 1 ? 'yellow' : 'red'"
                             @click="openClueModal(index)" :disabled="isReviewMode" class="relative" />
+
+                        <!-- Pastille bleue si l'indice n'a pas été utilisé -->
+                        <span v-if="!challengeStore.cluesUsed.some(c => c.hintType === index.toString())"
+                            class="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2 bg-blue-500 w-3 h-3 rounded-full">
+                        </span>
                     </div>
                 </li>
             </ul>
         </div>
     </div>
+
+    <!-- Modal d'indice -->
+    <DashboardChallengesClueModal v-model:isOpen="isOpen" :clue-value="clueValue" @close="isOpen = false" />
 </template>
 
 <script setup>
@@ -52,5 +60,11 @@ function submitAnswer() {
         challengeStore.checkAnswer(inputValue.value);
         inputValue.value = "";
     }
+}
+
+// Fonction pour ouvrir la modale avec l'indice sélectionné
+function openClueModal(clueIndex) {
+    clueValue.value = clueIndex;
+    isOpen.value = true;
 }
 </script>
