@@ -6,7 +6,7 @@ export interface Group {
   _id?: ObjectId
   name: string
   description: string
-  image: string
+  color: string
 }
 
 export async function getAllGroupsFromDB(): Promise<Group[]> {
@@ -29,7 +29,7 @@ export async function createGroupInDB(data: Partial<Group>): Promise<Group> {
     _id: new ObjectId(),
     name: data.name,
     description: data.description || "",
-    image: data.image || "",
+    color: data.color || "",
   }
 
   await db.collection<Group>("groups").insertOne(newGroup)
