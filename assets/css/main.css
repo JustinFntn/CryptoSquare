@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  #markdown-container {
+    & h1 {
+      @apply text-4xl font-extrabold text-black-800 dark:text-white-100 mb-2 ml-4;
+    }
+  }
+}

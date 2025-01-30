@@ -9,6 +9,7 @@
       <!-- Affiche un message de chargement si les données ne sont pas encore prêtes -->
       <p v-else-if="!challengesStore.isLoaded || !challengesStore.isSubmissionsLoaded">
         Chargement des défis...
+        <!-- TODO SPINNER CHARGEMENT -->
       </p>
 
       <!-- Affiche les groupes de défis une fois les données chargées -->
@@ -22,35 +23,36 @@
 </template>
 
 <script setup>
+import { computed, watchEffect, nextTick } from 'vue';
 import { useChallengesStore } from '@/stores/challengesStore';
-import { computed, onMounted } from 'vue';
 
 const challengesStore = useChallengesStore();
-const { user } = useUser();
+const { user, isLoaded } = useUser(); // Clerk user
 
-onMounted(async () => {
+watchEffect(async () => {
+  // Attendre que Clerk charge l'utilisateur
+  if (!isLoaded.value) return;
+
+  // Lancer la récupération des challenges
   await challengesStore.fetchChallenges();
+
+  // Si un utilisateur est connecté, récupérer ses soumissions
   if (user.value?.id) {
     await challengesStore.fetchSubmissions(user.value.id);
+  } else {
+    challengesStore.isSubmissionsLoaded = true;
   }
+
   await nextTick();
 });
 
+// Métadonnées de la page
 definePageMeta({
   layout: "user",
 });
 
 // Filtrer les défis pour chaque niveau
-const easyChallenges = computed(() => {
-  return challengesStore.getChallengesByDifficulty('easy');
-});
-
-const mediumChallenges = computed(() => {
-  return challengesStore.getChallengesByDifficulty('medium');
-});
-
-const hardChallenges = computed(() => {
-  return challengesStore.getChallengesByDifficulty('hard');
-});
-
+const easyChallenges = computed(() => challengesStore.getChallengesByDifficulty('easy'));
+const mediumChallenges = computed(() => challengesStore.getChallengesByDifficulty('medium'));
+const hardChallenges = computed(() => challengesStore.getChallengesByDifficulty('hard'));
 </script>
