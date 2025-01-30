@@ -47,7 +47,7 @@ const linksTop = ref([
 ])
 
 const linksBottom = ref([
-  { label: "Logout", icon: "i-lucide-log-out", link: "/" },
+  { label: "Home", icon: "i-lucide-home", link: "/" },
   { label: "Preferences", icon: "i-lucide-settings", link: "/dashboard/preferences" },
   { label: "Help", icon: "i-lucide-circle-help", link: "/dashboard/help" },
 ])
