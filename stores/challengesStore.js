@@ -51,7 +51,7 @@ export const useChallengesStore = defineStore("challengesStore", {
     getChallengesByStatus: (state) => (userId, status) => {
       return state.challenges.filter((challenge) => {
         const submission = state.submissions.find((sub) => sub.challengeId === challenge._id && sub.userId === userId)
-        if (!submission) return status === "New" // Si pas de submission => New
+        if (!submission) return status === "New"
         return submission.status === status
       })
     },
