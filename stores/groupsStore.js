@@ -85,7 +85,6 @@ export const useGroupsStore = defineStore("groups", {
 
           const completedSubmissions = submissionsData.submissions.filter((sub) => sub.status === "completed")
           console.log("✔️ Soumissions complétées :", completedSubmissions)
-          s
           for (const submission of completedSubmissions) {
             if (!submission.challengeId) {
               console.warn("⚠️ Soumission sans challengeId, ignorée :", submission)
