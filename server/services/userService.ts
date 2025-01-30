@@ -3,17 +3,16 @@ import { createError } from "h3"
 
 export interface User {
   _id?: string
-  username: string
-  email?: string | null
   groupId?: string | null
 }
 
 export async function createUserInDB(data: Partial<User>): Promise<User> {
-  if (!data._id || !data.username) {
+  console.log("create useraaaaa")
+  if (!data._id) {
     throw createError({
       statusCode: 400,
       statusMessage: "Bad Request",
-      message: "'id' and 'username' are required",
+      message: "'id' is required",
       stack: undefined,
     })
   }
@@ -33,8 +32,6 @@ export async function createUserInDB(data: Partial<User>): Promise<User> {
 
   const newUser: User = {
     _id: data._id,
-    username: data.username,
-    email: data.email ?? null,
     groupId: data.groupId ?? null,
   }
 
