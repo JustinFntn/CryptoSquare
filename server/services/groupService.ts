@@ -77,3 +77,9 @@ export async function deleteGroupFromDB(id: string): Promise<void> {
 
   await collection.deleteOne({ _id: new ObjectId(id) })
 }
+
+export async function getAllMembersOfGroupFromDB(groupId: string): Promise<any> {
+  const db = await useMongo()
+
+  return db.collection("users").find({ groupId }).toArray()
+}

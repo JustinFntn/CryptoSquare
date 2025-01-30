@@ -83,7 +83,6 @@ watchEffect(async () => {
   }
 });
 
-// ✅ Vérifier les défis complétés en croisant les `challenges` et `submissions`
 const completedChallenges = computed(() => {
   if (!isAuthenticated.value || !challengesStore.challenges.length || !challengesStore.submissions.length) return [];
 
@@ -92,21 +91,19 @@ const completedChallenges = computed(() => {
   });
 });
 
-// ✅ Calculer le nombre total de tentatives (depuis les soumissions)
 const totalAttempts = computed(() => {
   return isAuthenticated.value && challengesStore.submissions.length
     ? challengesStore.submissions.reduce((sum, sub) => sum + (sub.attemptCount || 0), 0)
     : 0;
 });
 
-// ✅ Calculer le nombre total d'indices utilisés
 const totalCluesUsed = computed(() => {
   return isAuthenticated.value && challengesStore.submissions.length
     ? challengesStore.submissions.reduce((sum, sub) => sum + (sub.hintsUsed?.length || 0), 0)
     : 0;
 });
 
-// ✅ Recalculer `userScore` à partir des soumissions (évite les erreurs de chargement)
+
 const userScore = computed(() => {
   return isAuthenticated.value && challengesStore.submissions.length
     ? challengesStore.submissions.reduce((total, sub) => total + (sub.pointsEarned || 0), 0)
