@@ -50,12 +50,12 @@ definePageMeta({
 </script>
 
 <template>
-  <UNotifications position="center" />
-  <div class="h-full w-full relative">
+  <UNotifications />
+  <div class="w-full">
     <div v-if="challengeStore.isLoading">Chargement...</div>
     <div v-else-if="challengeStore.errorMessage">{{ challengeStore.errorMessage }}</div>
     <div v-else-if="challengeData">
-      <h1 class="text-4xl font-extrabold text-white mb-2 ml-4">
+      <h1 class="text-2xl font-extrabold my-2 ml-4">
         {{ challengeData.title }}
       </h1>
       <h2 class="text-2xl font-semibold text-gray-400 mb-6 ml-4">
@@ -66,7 +66,7 @@ definePageMeta({
         <Markdown :source="challengeData.content" />
       </div>
 
-      <div class="absolute bottom-4 flex z-10 w-full justify-between px-4">
+      <div class="mb-4 flex z-10 justify-between px-4">
         <DashboardChallengesInput :isReviewMode="isReviewMode" />
         <DashboardChallengesScore />
       </div>
