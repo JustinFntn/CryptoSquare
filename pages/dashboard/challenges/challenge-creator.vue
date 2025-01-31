@@ -237,7 +237,7 @@ There could be multiple paragraphs as well as some \`formatted text\`, *emphasiz
 1. Read the challenge description
 2. Solve the clues
 
-### Clues
+### Additional info
 
 If you don't know some important knowledge, search on [Google](https://www.google.com) for more information.`
 
