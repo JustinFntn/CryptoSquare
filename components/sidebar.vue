@@ -1,10 +1,10 @@
 <template>
   <div class="bg-neutral-100 dark:bg-neutral-900 py-4 h-screen flex flex-col min-w-40">
-    <div class="flex justify-center w-full border-b mb-2">
+    <div class="flex justify-center w-full border-b mb-2 dark:border-neutral-800">
       <Logo class="mb-4 scale-[1.75]" />
     </div>
     <div
-      class="flex gap-2 items-center hover:bg-primary-200 mx-4 group dark:hover:bg-primary-900/50 rounded py-2 cursor-pointer">
+      class="flex gap-2 items-center hover:bg-primary-200 mx-1 px-2 dark:hover:bg-primary-900/50 rounded py-2 cursor-pointer">
       <UAvatar :src="user?.imageUrl || 'https://placehold.co/40x40'" />
       <div>
         <p class="font-semibold text-primary-500">{{ user?.username || 'username' }}</p>
@@ -12,10 +12,10 @@
       </div>
     </div>
     <div class="flex-grow border-t mt-2 dark:border-neutral-800">
-      <ul class="w-full">
+      <ul class="mx-1">
         <li v-for="link in linksTop" :key="link.label" class="w-full">
           <NuxtLink :to="link.link"
-            class="flex w-full gap-3 items-center px-4 py-1 my-2 hover:bg-primary-200 dark:hover:bg-primary-900/50 rounded transition">
+            class="flex gap-3 items-center px-4 py-1 my-2 hover:bg-primary-200 dark:hover:bg-primary-900/50 rounded transition">
             <UIcon :name="link.icon" />
             <h3>{{ link.label }}</h3>
           </NuxtLink>
@@ -23,10 +23,10 @@
       </ul>
     </div>
     <div class="dark:border-neutral-800 border-t">
-      <ul class="w-full">
+      <ul class="mx-1">
         <li v-for="link in linksBottom" :key="link.label" class="w-full">
           <NuxtLink :to="link.link"
-            class="flex w-full gap-3 items-center px-4 py-1 my-2 hover:bg-primary-200 dark:hover:bg-primary-900/50 rounded transition">
+            class="flex gap-3 items-center px-4 py-1 my-2 hover:bg-primary-200 dark:hover:bg-primary-900/50 rounded transition">
             <UIcon :name="link.icon" />
             <h3>{{ link.label }}</h3>
           </NuxtLink>
@@ -47,7 +47,7 @@ const linksTop = ref([
 ])
 
 const linksBottom = ref([
-  { label: "Logout", icon: "i-lucide-log-out", link: "/" },
+  { label: "Home", icon: "i-lucide-home", link: "/" },
   { label: "Preferences", icon: "i-lucide-settings", link: "/dashboard/preferences" },
   { label: "Help", icon: "i-lucide-circle-help", link: "/dashboard/help" },
 ])

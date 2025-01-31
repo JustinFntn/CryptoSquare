@@ -4,14 +4,10 @@ const challengeStore = useChallengeStore();
 </script>
 
 <template>
-    <div class="bg-neutral-900 border border-neutral-800 px-6 py-3 rounded-xl flex items-center text-white text-center">
-        <div>
-            <div>
-                <h1 class="text-sm">Score</h1>
-            </div>
-            <div class="text-lg font-bold">
-                {{ challengeStore.userScore }}
-            </div>
+    <UCard class="mx-4 border border-neutral-800 rounded-xl bg-neutral-200 dark:bg-neutral-900">
+        <h1 class="text-lg font-semibold">Score</h1>
+        <div class="text-lg font-bold text-center">
+            {{ challengeStore.userScore }}
         </div>
-    </div>
+    </UCard>
 </template>

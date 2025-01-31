@@ -9,8 +9,10 @@
 
       <UCard v-for="(clue, index) in clues" :key="index" :class="getClueBgColor(clue)">
         <p>{{ ordinal(index + 1) }} clue</p>
-        <UFormGroup label="Difficulty" name="difficulty">
-          <USelect v-model="clue.difficulty" :options="['Easy', 'Medium', 'Hard']" />
+        <UFormGroup label="Clue color" name="difficulty">
+          <USelect v-model="clue.difficulty" :options="['easy', 'medium', 'hard']" />
+          <!-- TODO - ajout de la gestion d'indices != 3 dans la page de challenge -->
+
         </UFormGroup>
 
         <UFormGroup label="Clue text" name="textEnigme">
@@ -19,6 +21,11 @@
 
         <UFormGroup label="Penalty" name="value">
           <UInput v-model="clue.value" />
+        </UFormGroup>
+
+        <UFormGroup class="pt-4 flex justify-end">
+          <UButton v-if="index != 0" icon="i-lucide-trash-2" @click="deleteClue(index)" color="red" class="flex-1">
+          </UButton>
         </UFormGroup>
       </UCard>
     </div>
@@ -42,18 +49,23 @@ const clues = defineModel<Clue[]>();
 
 function addClue() {
   if (clues.value)
-    clues.value.push({ difficulty: 'Easy', textEnigme: '', value: 0 });
+    clues.value.push({ difficulty: 'easy', textEnigme: '', value: 0 });
+}
+
+function deleteClue(index: number) {
+  if (clues.value)
+    clues.value.splice(index, 1);
 }
 
 
 const getClueBgColor = computed(() => (clue: any) => {
   const baseClass = "bg-gradient-to-br from-gray-800 ";
 
-  if (clue.difficulty === 'Easy') {
+  if (clue.difficulty === 'easy') {
     return baseClass + 'to-green-500';
-  } else if (clue.difficulty === 'Medium') {
+  } else if (clue.difficulty === 'medium') {
     return baseClass + 'to-yellow-500';
-  } else if (clue.difficulty === 'Hard') {
+  } else if (clue.difficulty === 'hard') {
     return baseClass + 'to-red-500';
   }
 });
