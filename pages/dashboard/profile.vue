@@ -16,12 +16,12 @@
         </div>
 
         <div v-if="isAuthenticated" class="space-y-8">
-          <div class="p-6 bg-white dark:bg-gray-900 rounded-lg shadow ring-1 ring-gray-200 dark:ring-gray-800">
+          <!-- <div class="p-6 bg-white dark:bg-gray-900 rounded-lg shadow ring-1 ring-gray-200 dark:ring-gray-800">
             <h2 class="text-2xl font-semibold text-primary-500">Group</h2>
             <p class="text-neutral-500 dark:text-neutral-400 mt-2">
               You belong to the Group: {{ user?.groupName || 'No Group' }}.
             </p>
-          </div>
+          </div> -->
           <div class="p-6 bg-white dark:bg-gray-900 rounded-lg shadow ring-1 ring-gray-200 dark:ring-gray-800">
             <h2 class="text-2xl font-semibold text-primary-500">Points</h2>
             <p class="text-neutral-500 dark:text-neutral-400 mt-2">
