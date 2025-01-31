@@ -1,0 +1,15 @@
+meta {
+  name: Get all members from a groups
+  type: http
+  seq: 6
+}
+
+get {
+  url: {{BaseUrl}}/api/groups/members/:idGroup
+  body: none
+  auth: none
+}
+
+params:path {
+  idGroup: 
+}

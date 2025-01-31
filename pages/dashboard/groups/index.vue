@@ -54,7 +54,6 @@ definePageMeta({
 const userStore = useUserStore();
 const showGroupWarning = ref(false);
 
-// Vérifier si l'utilisateur est déjà dans un groupe
 const isInGroup = computed(() => {
   return userStore.userGroupID !== null && userStore.userGroupID !== "";
 });

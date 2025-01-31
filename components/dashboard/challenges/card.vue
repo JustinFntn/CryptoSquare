@@ -7,27 +7,24 @@ const props = defineProps({
     title: String,
     difficulty: String,
     subtitle: String,
-    _id: String, // ID du challenge
+    _id: String,
 });
 
 const { user } = useUser();
 
 const challengesStore = useChallengesStore();
 
-// Vérifie si une soumission existe pour ce challenge
 const submission = computed(() => {
     return challengesStore.submissions.find(
         (sub) => sub.challengeId === props._id && sub.userId === user.value?.id
     ) || null;
 });
 
-// Détermine le statut du challenge
 const challengeStatus = computed(() => {
     if (!submission.value) return "New";
     return submission.value.status === "completed" ? "Completed" : "In Progress";
 });
 
-// ✅ Garde la couleur de la difficulté même si complété
 const buttonColor = computed(() => {
     switch (props.difficulty) {
         case "easy":
@@ -41,7 +38,6 @@ const buttonColor = computed(() => {
     }
 });
 
-// ✅ Couleur de la vignette du statut
 const statusColor = computed(() => {
     switch (challengeStatus.value) {
         case "New":
@@ -80,7 +76,7 @@ const challengeLink = computed(() => {
             </h1>
         </div>
         <div class="px-2 py-1">
-            <p class="text-sm line-clamp-2">{{ subtitle }}</p>
+            <p class="text-sm line-clamp-1">{{ subtitle }}</p>
             <!-- ✅ Bouton qui change selon le statut -->
             <UButton size="2xs" block :label="challengeStatus === 'Completed' ? 'Review Challenge' : 'Start Challenge'"
                 class="my-2" icon="i-lucide-eye" :color="buttonColor" :to="`/dashboard/challenges/${props._id}`" />
