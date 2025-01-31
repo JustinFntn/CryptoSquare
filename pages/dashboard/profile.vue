@@ -29,7 +29,7 @@
             </p>
           </div>
           <div class="p-6 bg-white dark:bg-gray-900 rounded-lg shadow ring-1 ring-gray-200 dark:ring-gray-800">
-            <h2 class="text-2xl font-semibold text-primary-500">Challenges Réussis</h2>
+            <h2 class="text-2xl font-semibold text-primary-500">Completed Challenges</h2>
             <p class="text-neutral-500 dark:text-neutral-400 mt-2">
               You have completed {{ completedChallenges?.length ?? 0 }} challenges.
             </p>
@@ -75,7 +75,6 @@ const { user, isLoaded, isSignedIn } = useUser();
 
 const isAuthenticated = computed(() => isLoaded.value && isSignedIn.value && user.value);
 
-// 🔥 Charger challenges et soumissions APRÈS authentification
 watchEffect(async () => {
   if (isAuthenticated.value) {
     await challengesStore.fetchChallenges();
@@ -97,12 +96,12 @@ const totalAttempts = computed(() => {
     : 0;
 });
 
+
 const totalCluesUsed = computed(() => {
   return isAuthenticated.value && challengesStore.submissions.length
     ? challengesStore.submissions.reduce((sum, sub) => sum + (sub.hintsUsed?.length || 0), 0)
     : 0;
 });
-
 
 const userScore = computed(() => {
   return isAuthenticated.value && challengesStore.submissions.length
