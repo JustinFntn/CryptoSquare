@@ -154,6 +154,8 @@ export const useChallengeStore = defineStore("challengeStore", {
     checkAnswer(userAnswer) {
       if (!this.challenge) return
 
+      this.submission.attemptCount = (this.submission.attemptCount || 0) + 1
+
       if (userAnswer.trim().toLowerCase() === this.challenge.answer.toLowerCase()) {
         this.showVictoryModal = true
         this.isChallengeCompleted = true
@@ -161,9 +163,7 @@ export const useChallengeStore = defineStore("challengeStore", {
         this.updateSubmission()
         return { success: true }
       } else {
-        this.submission.attemptCount = (this.submission.attemptCount || 0) + 1
         const penalty = 3
-
         this.userScore = Math.max(0, this.userScore - penalty)
         this.updateSubmission()
         return { success: false, penalty }
