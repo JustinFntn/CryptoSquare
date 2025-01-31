@@ -84,4 +84,9 @@ const createSquad = async () => {
 definePageMeta({
   layout: "user",
 });
+
+useHead({
+  title: 'Groups - Crypto Square'
+})
+
 </script>

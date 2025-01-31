@@ -6,5 +6,7 @@
 </template>
 
 <script setup>
-
+useHead({
+  title: 'test'
+})
 </script>

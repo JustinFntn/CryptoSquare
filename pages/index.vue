@@ -34,4 +34,7 @@ const signInButton = ref(null)
 const signIn = () => {
   signInButton.value.$el.click()
 }
+useHead({
+  title: 'Welcome to Crypto Square'
+})
 </script>

@@ -18,4 +18,7 @@
 definePageMeta({
   layout: 'help'
 })
+useHead({
+  title: 'Help - Crypto Square'
+})
 </script>

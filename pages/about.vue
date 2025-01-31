@@ -49,4 +49,8 @@ const uiCardConfig: object = {
   base: `basis-1/2 m-2`,
   background: "bg-gray-50 dark:bg-gray-800",
 }
+
+useHead({
+  title: 'About - Crypto Square'
+})
 </script>

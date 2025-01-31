@@ -1,8 +1,11 @@
 <script setup>
-import { ref, computed, watchEffect } from "vue"
 import { useRoute, useRouter } from "vue-router"
 import { useChallengeStore } from "@/stores/challengeStore"
 import Markdown from "vue3-markdown-it"
+
+useHead({
+  title: 'Challenges - Crypto Square'
+})
 
 const challengeStore = useChallengeStore()
 const route = useRoute()
