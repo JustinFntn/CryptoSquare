@@ -86,7 +86,9 @@ export const useGroupsStore = defineStore("groups", {
               continue
             }
 
-            const challengeResponse = await fetch(`https://cryptosquare.csquare.dev/api/challenges/${submission.challengeId}`)
+            const challengeResponse = await fetch(
+              `https://cryptosquare.csquare.dev/api/challenges/${submission.challengeId}`
+            )
             if (!challengeResponse.ok) continue
 
             const challengeData = await challengeResponse.json()
@@ -111,7 +113,7 @@ export const useGroupsStore = defineStore("groups", {
       try {
         let totalPoints = 0
 
-        const membersResponse = await fetch(`http://localhost:3000/api/groups/members/${groupId}`)
+        const membersResponse = await fetch(`https://cryptosquare.csquare.dev/api/groups/members/${groupId}`)
         if (!membersResponse.ok) throw new Error("Error fetching members")
 
         const membersData = await membersResponse.json()
@@ -120,7 +122,7 @@ export const useGroupsStore = defineStore("groups", {
         for (const member of membersData.members) {
           if (!member._id) continue
 
-          const submissionsResponse = await fetch(`http://localhost:3000/api/submissions/user/${member._id}`)
+          const submissionsResponse = await fetch(`https://cryptosquare.csquare.dev/api/submissions/user/${member._id}`)
           if (!submissionsResponse.ok) continue
 
           const submissionsData = await submissionsResponse.json()
