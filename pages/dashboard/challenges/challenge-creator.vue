@@ -48,8 +48,15 @@
       </UFormGroup>
 
 
-      <UButton type="submit">
-        Submit
+      <UButton type="submit" :disabled="submitButtonState.error"
+        :color="submitButtonState.error ? 'red' : submitButtonState.sent ? 'green' : 'primary'"
+        :loading="submitButtonState.loading" :icon="submitButtonState.error ? 'i-lucide-circle-x' : submitButtonState.sent ? 'i-lucide-check' : 'i-lucide-send'
+          ">
+        <!-- ? l'icône d'erreur ne s'affiche pas, probablement à cause du "loading" -->
+        {{
+          submitButtonState.error ? 'Error while sending' :
+            submitButtonState.sent ? 'Sent' : 'Submit'
+        }}
       </UButton>
     </UForm>
 
@@ -111,27 +118,54 @@ const state = ref<Schema>({
   answer: ''
 })
 
+const submitButtonState = ref({
+  loading: false,
+  sent: false,
+  error: false,
+})
+
 async function onSubmit(event: FormSubmitEvent<Schema>) {
   // TODO - Ajouter l'appel API pour créer le challenge
 
-  // console.log(JSON.stringify(event.data));
+  submitButtonState.value.loading = true
 
-  await fetch('http://localhost:3000/api/challenges', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(event.data)
-  })
+
+  try {
+    const res = await fetch('/api/challenges', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(event.data)
+    })
+
+    if (!res.ok) {
+      throw new Error(res.statusText)
+    }
+
+    submitButtonState.value.loading = false
+    submitButtonState.value.sent = true
+
+    setTimeout(() => {
+      submitButtonState.value.sent = false
+    }, 3000)
+
+  } catch (error) {
+    submitButtonState.value.loading = false
+    submitButtonState.value.sent = false
+    submitButtonState.value.error = true
+    console.error("Error creating challenge:", error);
+
+    setTimeout(() => {
+      submitButtonState.value.error = false
+    }, 3000)
+  }
 }
 
 async function onFileUpload(event: Event) {
-  // console.log("TEST FILE UPLOADED");
 
   const input = event.target as HTMLInputElement;
-  // console.log(input);
   const file = input.files?.[0];
-  // console.log(file);
 
   if (!file) return;
   // if (file.type !== "text/markdown") {
@@ -145,8 +179,6 @@ async function onFileUpload(event: Event) {
 
   const data = mdContent.split('---')[1]?.trim();
   if (!data) return;
-
-  // console.log(data);
 
   try {
     const challenge = parse(data) as Schema;
