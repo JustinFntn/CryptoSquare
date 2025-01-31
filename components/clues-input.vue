@@ -6,8 +6,8 @@
 
     <div class="mt-4 grid auto-rows-fr grid-cols-3 gap-2">
 
-
-      <UCard v-for="(clue, index) in clues" :key="index" :class="getClueBgColor(clue)">
+      <UCard v-for="(clue, index) in clues" :key="index"
+        :class="`bg-gradient-to-br from-white ${colors[clue.difficulty as keyof typeof colors]} dark:bg-gradient-to-br dark:from-gray-800 dark:${colors[clue.difficulty as keyof typeof colors]}`">
         <p>{{ ordinal(index + 1) }} clue</p>
         <UFormGroup label="Clue color" name="difficulty">
           <USelect v-model="clue.difficulty" :options="['easy', 'medium', 'hard']" />
@@ -36,7 +36,7 @@
 <script lang="ts" setup>
 
 interface Clue {
-  difficulty: string;
+  difficulty: 'easy' | 'medium' | 'hard';
   textEnigme: string;
   value: number;
 }
@@ -44,7 +44,11 @@ interface Clue {
 // Explicitly define the model type
 const clues = defineModel<Clue[]>();
 
-
+const colors: Record<Clue['difficulty'], string> = {
+  easy: 'bg-green-500',
+  medium: 'bg-yellow-500',
+  hard: 'bg-red-500'
+}
 
 
 function addClue() {
@@ -56,19 +60,6 @@ function deleteClue(index: number) {
   if (clues.value)
     clues.value.splice(index, 1);
 }
-
-
-const getClueBgColor = computed(() => (clue: any) => {
-  const baseClass = "bg-gradient-to-br from-gray-800 ";
-
-  if (clue.difficulty === 'easy') {
-    return baseClass + 'to-green-500';
-  } else if (clue.difficulty === 'medium') {
-    return baseClass + 'to-yellow-500';
-  } else if (clue.difficulty === 'hard') {
-    return baseClass + 'to-red-500';
-  }
-});
 
 const english_ordinal_rules = new Intl.PluralRules("en", { type: "ordinal" });
 const suffixes = {
@@ -84,5 +75,3 @@ function ordinal(number: number): string {
 }
 
 </script>
-
-<style></style>

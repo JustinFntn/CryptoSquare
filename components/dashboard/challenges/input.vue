@@ -70,13 +70,13 @@ const openClueModal = (clueIndex) => {
 </script>
 
 <template>
-    <div class="flex gap-3 items-center bg-neutral-900 p-3 rounded-xl border border-neutral-700">
+    <div class="flex gap-3 items-center bg-neutral-200 dark:bg-neutral-900 p-3 rounded-xl border border-neutral-700">
         <div class="flex gap-2 w-full">
-            <div class="bg-neutral-800 flex items-center px-4 py-1 rounded-full border-2 border-primary-500 w-full"
+            <div class="dark:bg-neutral-800 bg-neutral-700 flex items-center px-4 py-1 rounded-full border-2 border-primary-500 w-full"
                 :class="{ 'opacity-50 cursor-not-allowed': isReviewMode || challengeStore.isChallengeCompleted }">
 
                 <input v-model="inputValue" type="text"
-                    class="outline-none focus:ring-0 w-full focus:border-transparent bg-transparent text-white text-theme-text"
+                    class="outline-none focus:ring-0 w-full focus:border-transparent bg-transparent"
                     placeholder="Tape ta réponse ici" :disabled="isReviewMode || challengeStore.isChallengeCompleted" />
 
                 <button @click="submitAnswer"
