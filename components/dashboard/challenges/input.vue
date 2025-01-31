@@ -26,8 +26,8 @@ function submitAnswer() {
         if (result) {
             if (!result.success) {
                 toast.add({
-                    title: "Mauvaise réponse ❌",
-                    description: `-${result.penalty} points. Réessaie.`,
+                    title: "Wrong answer ❌",
+                    description: `-${result.penalty} points. Try again.`,
                     color: "red",
                     timeout: 2000,
                     actions: [],
