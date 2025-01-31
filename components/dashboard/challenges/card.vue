@@ -7,7 +7,7 @@ const props = defineProps({
     title: String,
     difficulty: String,
     subtitle: String,
-    _id: String, // ID du challenge
+    _id: String,
 });
 
 const { user } = useUser();
@@ -20,13 +20,11 @@ const submission = computed(() => {
     ) || null;
 });
 
-// Détermine le statut du challenge
 const challengeStatus = computed(() => {
     if (!submission.value) return "New";
     return submission.value.status === "completed" ? "Completed" : "In Progress";
 });
 
-// ✅ Garde la couleur de la difficulté même si complété
 const buttonColor = computed(() => {
     switch (props.difficulty) {
         case "easy":
@@ -40,7 +38,6 @@ const buttonColor = computed(() => {
     }
 });
 
-// ✅ Couleur de la vignette du statut
 const statusColor = computed(() => {
     switch (challengeStatus.value) {
         case "New":
