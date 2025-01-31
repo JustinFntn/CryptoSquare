@@ -42,7 +42,7 @@ const clueData = computed(() => {
 <template>
     <UModal :model-value="isOpen" @update:model-value="$emit('update:isOpen', $event)">
         <div class="p-4">
-            <h1 class="text-xl font-semibold capitalize">Indice {{ clueValue }}</h1>
+            <h1 class="text-xl font-semibold capitalize">Clue {{ clueValue }}</h1>
 
             <!-- ✅ Condition pour changer l'affichage une fois l'indice utilisé -->
             <h2 v-if="!challengeStore.cluesUsed.some(c => c.hintType === clueValue.toString())" class="my-2">
