@@ -54,13 +54,18 @@ function openClueModal(clueIndex) {
         <div class="flex gap-2 w-full">
             <div class="bg-neutral-800 flex items-center px-4 py-1 rounded-full border-2 border-primary-500 w-full"
                 :class="{ 'opacity-50 cursor-not-allowed': isReviewMode || challengeStore.isChallengeCompleted }">
+
                 <input v-model="inputValue" type="text"
                     class="outline-none focus:ring-0 w-full focus:border-transparent bg-transparent text-white text-theme-text"
                     placeholder="Tape ta réponse ici" :disabled="isReviewMode || challengeStore.isChallengeCompleted" />
-                <button @click="submitAnswer" class="hover:text-primary-500 flex items-center text-theme-text"
-                    :disabled="isReviewMode || challengeStore.isChallengeCompleted">
+
+                <button @click="submitAnswer"
+                    class="hover:text-primary-500 flex items-center text-theme-text transition-all"
+                    :class="{ 'opacity-50 cursor-not-allowed': isReviewMode || challengeStore.isChallengeCompleted || !inputValue }"
+                    :disabled="isReviewMode || challengeStore.isChallengeCompleted || !inputValue">
                     <UIcon name="i-lucide-send-horizontal" />
                 </button>
+
             </div>
         </div>
 
