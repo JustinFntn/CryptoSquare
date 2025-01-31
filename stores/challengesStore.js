@@ -11,7 +11,7 @@ export const useChallengesStore = defineStore("challengesStore", {
   actions: {
     async fetchChallenges() {
       try {
-        const response = await fetch("http://localhost:3000/api/challenges")
+        const response = await fetch(`https://cryptosquare.csquare.dev/api/challenges`)
         if (!response.ok) throw new Error(`Erreur HTTP: ${response.status}`)
 
         const data = await response.json()
@@ -25,7 +25,7 @@ export const useChallengesStore = defineStore("challengesStore", {
 
     async fetchSubmissions(userId) {
       try {
-        const response = await fetch(`http://localhost:3000/api/submissions/user/${userId}`)
+        const response = await fetch(`https://cryptosquare.csquare.dev/api/submissions/user/${userId}`)
         if (!response.ok) throw new Error(`Erreur HTTP: ${response.status}`)
 
         const data = await response.json()
