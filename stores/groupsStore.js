@@ -14,7 +14,7 @@ export const useGroupsStore = defineStore("groups", {
       this.isLoaded = false
 
       try {
-        const groupResponse = await fetch(`http://localhost:3000/api/groups/${groupId}`)
+        const groupResponse = await fetch(`https://cryptosquare.csquare.dev/api/groups/${groupId}`)
         if (!groupResponse.ok) throw new Error("Erreur lors de la récupération du groupe")
 
         const groupData = await groupResponse.json()
@@ -25,7 +25,7 @@ export const useGroupsStore = defineStore("groups", {
 
         this.groupData = groupData.group
 
-        const membersResponse = await fetch(`http://localhost:3000/api/groups/members/${groupId}`)
+        const membersResponse = await fetch(`https://cryptosquare.csquare.dev/api/groups/members/${groupId}`)
         if (!membersResponse.ok) throw new Error("Erreur lors de la récupération des membres")
 
         const membersData = await membersResponse.json()
@@ -41,7 +41,7 @@ export const useGroupsStore = defineStore("groups", {
 
     async fetchGroupMembers(groupId) {
       try {
-        const response = await fetch(`http://localhost:3000/api/groups/members/${groupId}`)
+        const response = await fetch(`https://cryptosquare.csquare.dev/api/groups/members/${groupId}`)
         if (!response.ok) throw new Error("Impossible de récupérer les membres")
 
         const data = await response.json()
@@ -55,7 +55,7 @@ export const useGroupsStore = defineStore("groups", {
       try {
         const scores = { easy: 0, medium: 0, hard: 0 }
 
-        const membersResponse = await fetch(`http://localhost:3000/api/groups/members/${groupId}`)
+        const membersResponse = await fetch(`https://cryptosquare.csquare.dev/api/groups/members/${groupId}`)
         if (!membersResponse.ok) throw new Error("Erreur lors de la récupération des membres")
 
         const membersData = await membersResponse.json()
@@ -74,7 +74,7 @@ export const useGroupsStore = defineStore("groups", {
             continue
           }
 
-          const submissionsResponse = await fetch(`http://localhost:3000/api/submissions/user/${member._id}`)
+          const submissionsResponse = await fetch(`https://cryptosquare.csquare.dev/api/submissions/user/${member._id}`)
           if (!submissionsResponse.ok) continue
 
           const submissionsData = await submissionsResponse.json()
@@ -91,7 +91,7 @@ export const useGroupsStore = defineStore("groups", {
               continue
             }
 
-            const challengeResponse = await fetch(`http://localhost:3000/api/challenges/${submission.challengeId}`)
+            const challengeResponse = await fetch(`https://cryptosquare.csquare.dev/api/challenges/${submission.challengeId}`)
             if (!challengeResponse.ok) continue
 
             const challengeData = await challengeResponse.json()
@@ -114,7 +114,7 @@ export const useGroupsStore = defineStore("groups", {
 
     async fetchAllGroups() {
       try {
-        const response = await fetch("http://localhost:3000/api/groups")
+        const response = await fetch("https://cryptosquare.csquare.dev/api/groups")
         const data = await response.json()
         this.groups = data.groups
       } catch (error) {
@@ -124,7 +124,7 @@ export const useGroupsStore = defineStore("groups", {
 
     async createGroup(group) {
       try {
-        const response = await fetch("http://localhost:3000/api/groups", {
+        const response = await fetch("https://cryptosquare.csquare.dev/api/groups", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(group),
@@ -169,7 +169,7 @@ export const useGroupsStore = defineStore("groups", {
 
         console.log(`Tentative d'adhésion au groupe ${groupId} pour l'utilisateur ${userStore.userID}...`)
 
-        const response = await fetch(`http://localhost:3000/api/users/group`, {
+        const response = await fetch(`https://cryptosquare.csquare.dev/api/users/group`, {
           method: "PATCH",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
@@ -200,7 +200,7 @@ export const useGroupsStore = defineStore("groups", {
         if (!group) throw new Error("Groupe introuvable")
 
         console.log("Retrait de l'utilisateur du groupe...")
-        const leaveResponse = await fetch(`http://localhost:3000/api/users/group`, {
+        const leaveResponse = await fetch(`https://cryptosquare.csquare.dev/api/users/group`, {
           method: "DELETE",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ userIds: [userStore.userID] }),
@@ -211,7 +211,7 @@ export const useGroupsStore = defineStore("groups", {
         userStore.userGroupID = ""
 
         console.log("Vérification des membres restants dans le groupe...")
-        const usersResponse = await fetch("http://localhost:3000/api/users")
+        const usersResponse = await fetch("https://cryptosquare.csquare.dev/api/users")
         if (!usersResponse.ok) throw new Error("Impossible de récupérer les utilisateurs")
 
         const allUsers = await usersResponse.json()
@@ -221,7 +221,7 @@ export const useGroupsStore = defineStore("groups", {
         if (remainingMembers.length === 0) {
           console.log("Aucun membre restant dans le groupe, suppression en cours...")
 
-          const deleteResponse = await fetch(`http://localhost:3000/api/groups/${groupId}`, {
+          const deleteResponse = await fetch(`https://cryptosquare.csquare.dev/api/groups/${groupId}`, {
             method: "DELETE",
             headers: { "Content-Type": "application/json" },
           })

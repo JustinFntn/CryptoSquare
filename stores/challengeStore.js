@@ -22,7 +22,7 @@ export const useChallengeStore = defineStore("challengeStore", {
       console.log(`Fetching challenge with ID: ${challengeId}`)
       this.isLoading = true
       try {
-        const response = await fetch(`http://localhost:3000/api/challenges/${challengeId}`)
+        const response = await fetch(`https://cryptosquare.csquare.dev/api/challenges/${challengeId}`)
         if (!response.ok) throw new Error(`Erreur HTTP: ${response.status}`)
 
         const data = await response.json()
@@ -47,7 +47,7 @@ export const useChallengeStore = defineStore("challengeStore", {
       try {
         console.log(`🔎 Vérification de la submission pour user: ${userId}, challenge: ${challengeId}`)
 
-        const response = await fetch(`http://localhost:3000/api/submissions/user/${userId}/challenge/${challengeId}`)
+        const response = await fetch(`https://cryptosquare.csquare.dev/api/submissions/user/${userId}/challenge/${challengeId}`)
         const data = await response.json()
 
         console.log("📥 Réponse API :", data)
@@ -78,7 +78,7 @@ export const useChallengeStore = defineStore("challengeStore", {
           pointsEarned: this.userScore,
         }
 
-        const createResponse = await fetch("http://localhost:3000/api/submissions", {
+        const createResponse = await fetch("https://cryptosquare.csquare.dev/api/submissions", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(newSubmission),
@@ -114,7 +114,7 @@ export const useChallengeStore = defineStore("challengeStore", {
 
         console.log("📤 Données pour updateSubmission:", JSON.stringify(updatedSubmission, null, 2))
 
-        const response = await fetch(`http://localhost:3000/api/submissions/${this.submission._id}`, {
+        const response = await fetch(`https://cryptosquare.csquare.dev/api/submissions/${this.submission._id}`, {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(updatedSubmission),
