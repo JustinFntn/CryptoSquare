@@ -81,7 +81,7 @@ function openClueModal(clueIndex) {
         </div>
     </div>
 
-    <!-- Modal d'indice -->
+    <!-- Modal d'indice
     <DashboardChallengesClueModal v-model:isOpen="isOpen" :clue-value="clueValue" @close="isOpen = false" />
     <UCard class="flex items-center border border-neutral-800 rounded-xl bg-neutral-200 dark:bg-neutral-900">
         <UButtonGroup :ui="{ rounded: 'rounded-full' }">
@@ -90,7 +90,7 @@ function openClueModal(clueIndex) {
             <UButton icon="i-lucide-send-horizontal" @click="submitAnswer"
                 :disabled="isReviewMode || challengeStore.isChallengeCompleted" />
         </UButtonGroup>
-    </UCard>
+    </UCard> -->
 </template>
 
 
