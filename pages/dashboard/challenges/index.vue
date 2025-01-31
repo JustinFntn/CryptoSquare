@@ -41,6 +41,11 @@ watchEffect(async () => {
   await nextTick();
 });
 
+useHead({
+  title: 'Challenges - Crypto Square'
+})
+
+
 definePageMeta({
   layout: "user",
 });

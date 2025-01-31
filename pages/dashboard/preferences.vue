@@ -5,4 +5,8 @@
 definePageMeta({
   layout: "user",
 })
+
+useHead({
+  title: 'Preferences - Crypto Square'
+})
 </script>

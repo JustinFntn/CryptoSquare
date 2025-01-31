@@ -57,4 +57,8 @@ const showGroupWarning = ref(false);
 const isInGroup = computed(() => {
   return userStore.userGroupID !== null && userStore.userGroupID !== "";
 });
+
+useHead({
+  title: 'Groups - Crypto Square'
+})
 </script>

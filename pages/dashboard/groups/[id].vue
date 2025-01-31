@@ -76,5 +76,9 @@ definePageMeta({
   layout: "user",
 });
 
+useHead({
+  title: 'Groups - Crypto Square'
+})
+
 onMounted(() => groupsStore.fetchGroupData(route.params.id));
 </script>

@@ -112,4 +112,8 @@ const userScore = computed(() => {
 definePageMeta({
   layout: "user",
 });
+
+useHead({
+  title: 'Profile - Crypto Squad'
+})
 </script>
