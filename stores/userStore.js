@@ -9,7 +9,7 @@ export const useUserStore = defineStore("user", {
   actions: {
     async fetchOrCreateUser(userId) {
       try {
-        const response = await fetch(`http://localhost:3000/api/users/${userId}`)
+        const response = await fetch(`https://cryptosquare.csquare.dev/api/users/${userId}`)
 
         if (response.status === 404) {
           console.log("Utilisateur introuvable, création en cours...")
@@ -36,7 +36,7 @@ export const useUserStore = defineStore("user", {
 
     async createUser(userId) {
       try {
-        const response = await fetch(`http://localhost:3000/api/users`, {
+        const response = await fetch(`https://cryptosquare.csquare.dev/api/users`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -68,7 +68,7 @@ export const useUserStore = defineStore("user", {
           throw new Error("userID non défini dans le store")
         }
 
-        const response = await fetch(`http://localhost:3000/api/users/${this.userID}`, {
+        const response = await fetch(`https://cryptosquare.csquare.dev/api/users/${this.userID}`, {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ groupId: groupID }),
@@ -96,7 +96,7 @@ export const useUserStore = defineStore("user", {
         }
 
         // ✅ Étape 1 : Retirer l'utilisateur du groupe
-        const removeResponse = await fetch(`http://localhost:3000/api/users/group`, {
+        const removeResponse = await fetch(`https://cryptosquare.csquare.dev/api/users/group`, {
           method: "DELETE",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ userIds: [this.userID] }),
@@ -109,7 +109,7 @@ export const useUserStore = defineStore("user", {
         console.log("✅ Utilisateur retiré du groupe avec succès")
 
         // ✅ Étape 2 : Récupérer tous les utilisateurs
-        const usersResponse = await fetch(`http://localhost:3000/api/users`)
+        const usersResponse = await fetch(`https://cryptosquare.csquare.dev/api/users`)
 
         if (!usersResponse.ok) {
           throw new Error(`❌ Erreur lors de la récupération des utilisateurs: ${usersResponse.status}`)
@@ -129,7 +129,7 @@ export const useUserStore = defineStore("user", {
 
         if (remainingUsersInGroup.length === 0) {
           console.log(`🛑 Le groupe ${this.userGroupID} est vide, suppression en cours...`)
-          const deleteResponse = await fetch(`http://localhost:3000/api/groups/${this.userGroupID}`, {
+          const deleteResponse = await fetch(`https://cryptosquare.csquare.dev/api/groups/${this.userGroupID}`, {
             method: "DELETE",
           })
 
