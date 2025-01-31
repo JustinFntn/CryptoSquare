@@ -42,11 +42,31 @@ function submitAnswer() {
     }
 }
 
+console.log("📌 Indices disponibles :", challengeStore.cluesAvailable);
 
-function openClueModal(clueIndex) {
+const sortedClues = computed(() => {
+    return [...challengeStore.cluesAvailable].sort((a, b) => {
+        const difficultyOrder = { easy: 1, medium: 2, hard: 3 };
+        return (difficultyOrder[a.difficulty] || 4) - (difficultyOrder[b.difficulty] || 4);
+    });
+});
+
+
+const getClueColor = (difficulty) => {
+    const colors = {
+        easy: "green",
+        medium: "yellow",
+        hard: "red"
+    };
+
+    return colors[difficulty] || "gray";
+};
+
+
+const openClueModal = (clueIndex) => {
     clueValue.value = clueIndex;
     isOpen.value = true;
-}
+};
 </script>
 
 <template>
@@ -72,13 +92,12 @@ function openClueModal(clueIndex) {
         <!-- Liste des indices -->
         <div>
             <ul class="flex gap-2">
-                <li v-for="(clue, index) in challengeStore.cluesAvailable" :key="index" class="relative">
+                <li v-for="(clue, index) in sortedClues" :key="index" class="relative">
                     <div class="relative inline-block">
-                        <UButton icon="i-lucide-badge-help"
-                            :color="index === 0 ? 'green' : index === 1 ? 'yellow' : 'red'"
+                        <UButton icon="i-lucide-badge-help" :color="getClueColor(clue.difficulty)"
                             @click="openClueModal(index)" :disabled="isReviewMode" class="relative" />
                         <!-- Pastille bleue si l'indice n'a pas encore été utilisé -->
-                        <span v-if="!challengeStore.cluesUsed.some(c => c.hintType === index.toString())"
+                        <span v-if="!challengeStore.cluesUsed.some(c => c.hintType === clue.textEnigme)"
                             class="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2 bg-blue-500 w-3 h-3 rounded-full" />
                     </div>
                 </li>
@@ -86,9 +105,9 @@ function openClueModal(clueIndex) {
         </div>
     </div>
 
-    <!-- Modal d'indice
+    <!-- Modal d'indice -->
     <DashboardChallengesClueModal v-model:isOpen="isOpen" :clue-value="clueValue" @close="isOpen = false" />
-    <UCard class="flex items-center border border-neutral-800 rounded-xl bg-neutral-200 dark:bg-neutral-900">
+    <!-- <UCard class="flex items-center border border-neutral-800 rounded-xl bg-neutral-200 dark:bg-neutral-900">
         <UButtonGroup :ui="{ rounded: 'rounded-full' }">
             <UInput v-model="inputValue" variant="outline" placeholder="Enter your answer"
                 :ui="{ variant: { outline: 'bg-transparent' } }" />

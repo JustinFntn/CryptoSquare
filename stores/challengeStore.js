@@ -47,7 +47,9 @@ export const useChallengeStore = defineStore("challengeStore", {
       try {
         console.log(`🔎 Vérification de la submission pour user: ${userId}, challenge: ${challengeId}`)
 
-        const response = await fetch(`https://cryptosquare.csquare.dev/api/submissions/user/${userId}/challenge/${challengeId}`)
+        const response = await fetch(
+          `https://cryptosquare.csquare.dev/api/submissions/user/${userId}/challenge/${challengeId}`
+        )
         const data = await response.json()
 
         console.log("📥 Réponse API :", data)
@@ -171,7 +173,7 @@ export const useChallengeStore = defineStore("challengeStore", {
 
   getters: {
     cluesAvailable: (state) => {
-      return state.challenge ? state.challenge.clues.map((c) => c.textEnigme) : []
+      return state.challenge ? state.challenge.clues : []
     },
     getChallengeById: (state) => {
       return state.challenge
