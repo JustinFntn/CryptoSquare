@@ -44,6 +44,7 @@ const linksTop = ref([
   { label: "Profile", icon: "i-lucide-user", link: "/dashboard/profile" },
   { label: "Groups", icon: "i-lucide-waypoints", link: "/dashboard/groups" },
   { label: "Challenges", icon: "i-lucide-brain-circuit", link: "/dashboard/challenges" },
+  { label: "Create a challenge", icon: "i-lucide-pencil-line", link: "/dashboard/challenges/challenge-creator" },
 ])
 
 const linksBottom = ref([
