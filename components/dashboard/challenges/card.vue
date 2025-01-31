@@ -14,7 +14,6 @@ const { user } = useUser();
 
 const challengesStore = useChallengesStore();
 
-// Vérifie si une soumission existe pour ce challenge
 const submission = computed(() => {
     return challengesStore.submissions.find(
         (sub) => sub.challengeId === props._id && sub.userId === user.value?.id
@@ -80,7 +79,7 @@ const challengeLink = computed(() => {
             </h1>
         </div>
         <div class="px-2 py-1">
-            <p class="text-sm line-clamp-2">{{ subtitle }}</p>
+            <p class="text-sm line-clamp-1">{{ subtitle }}</p>
             <!-- ✅ Bouton qui change selon le statut -->
             <UButton size="2xs" block :label="challengeStatus === 'Completed' ? 'Review Challenge' : 'Start Challenge'"
                 class="my-2" icon="i-lucide-eye" :color="buttonColor" :to="`/dashboard/challenges/${props._id}`" />
