@@ -257,6 +257,11 @@ definePageMeta({
   layout: 'user'
 })
 
+useHead({
+  title: 'Challenges - Crypto Square'
+})
+
+
 </script>
 
 <style></style>

@@ -84,6 +84,9 @@
 
 <script setup lang="ts">
 const updatedAt = '2025-01-28';
+useHead({
+  title: 'Terms & Conditions - Crypto Square'
+})
 </script>
 
 <style>

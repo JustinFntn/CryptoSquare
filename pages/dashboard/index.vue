@@ -46,4 +46,7 @@ const easyChallenges = computed(() => {
   return challengesStore.getChallengesByStatus(userId, "in_progress");
 });
 
+useHead({
+  title: 'Dashboard - Crypto Square'
+})
 </script>
