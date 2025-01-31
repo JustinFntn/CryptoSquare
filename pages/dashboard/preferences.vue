@@ -1,10 +1,8 @@
 <template>
-    <div>
-        preferences.vue
-    </div>
+  <UserProfile />
 </template>
 <script setup>
 definePageMeta({
-    layout: "user",
+  layout: "user",
 })
 </script>

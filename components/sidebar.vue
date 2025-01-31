@@ -41,6 +41,7 @@ import { ref } from "vue"
 const { user } = useUser()
 
 const linksTop = ref([
+  { label: "Dashboard", icon: "i-lucide-blocks", link: "/dashboard/" },
   { label: "Profile", icon: "i-lucide-user", link: "/dashboard/profile" },
   { label: "Groups", icon: "i-lucide-waypoints", link: "/dashboard/groups" },
   { label: "Challenges", icon: "i-lucide-brain-circuit", link: "/dashboard/challenges" },
