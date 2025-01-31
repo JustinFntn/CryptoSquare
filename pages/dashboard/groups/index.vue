@@ -3,7 +3,7 @@
     <UContainer>
       <div>
         <h1 class="text-xl text-primary-500 font-semibold">Crypto Squads</h1>
-        <p class="text-neutral-500">Join a clan to top the rankings.</p>
+        <p class="text-neutral-500">Join a squad to top the rankings.</p>
 
         <div>
           <DashboardChallengesGroupsPodium />
