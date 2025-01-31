@@ -114,7 +114,7 @@ export const useChallengeStore = defineStore("challengeStore", {
           pointsEarned: this.userScore,
         }
 
-        console.log("📤 Données pour updateSubmission:", JSON.stringify(updatedSubmission, null, 2))
+        console.log("📤 Données envoyées pour updateSubmission:", JSON.stringify(updatedSubmission, null, 2))
 
         const response = await fetch(`https://cryptosquare.csquare.dev/api/submissions/${this.submission._id}`, {
           method: "PUT",
@@ -134,23 +134,20 @@ export const useChallengeStore = defineStore("challengeStore", {
         console.error("❌ Erreur lors de la mise à jour de la submission :", err.message)
       }
     },
-
     useClue(clueID) {
       if (!this.isChallengeCompleted && this.challenge) {
         console.log("Tentative d'utilisation de l'indice :", clueID)
+
         const clue = this.challenge.clues[clueID]
         if (clue && !this.cluesUsed.some((c) => c.hintType === clueID.toString())) {
           this.userScore = Math.max(0, this.userScore - clue.value)
-
           this.cluesUsed.push({ hintType: String(clueID) })
           this.challenge.cluesUsed = [...this.cluesUsed.map((c) => c.hintType)]
-
-          console.log(`Indice ${clueID} utilisé, nouveaux points :`, this.userScore)
+          console.log(`📌 Indice ${clueID} utilisé, mise à jour cluesUsed :`, this.cluesUsed)
           this.updateSubmission()
         }
       }
     },
-
     checkAnswer(userAnswer) {
       if (!this.challenge) return
 

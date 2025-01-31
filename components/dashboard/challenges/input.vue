@@ -97,8 +97,9 @@ const openClueModal = (clueIndex) => {
                         <UButton icon="i-lucide-badge-help" :color="getClueColor(clue.difficulty)"
                             @click="openClueModal(index)" :disabled="isReviewMode" class="relative" />
                         <!-- Pastille bleue si l'indice n'a pas encore été utilisé -->
-                        <span v-if="!challengeStore.cluesUsed.some(c => c.hintType === clue.textEnigme)"
+                        <span v-if="!challengeStore.cluesUsed.some(c => c.hintType === String(index))"
                             class="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2 bg-blue-500 w-3 h-3 rounded-full" />
+
                     </div>
                 </li>
             </ul>
