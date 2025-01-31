@@ -16,7 +16,7 @@
               <UCard class="w-full">
                 <div class="flex flex-col items-center">
                   <h1 class="text-green-400 font-bold text-2xl">Easy</h1>
-                  <UBadge :label="groupsStore.scores.easy" color="green" variant="soft" />
+                  <UBadge :label="`${groupsStore.scores.easy}`" color="green" variant="soft" />
                 </div>
               </UCard>
             </li>
@@ -24,7 +24,7 @@
               <UCard class="w-full">
                 <div class="flex flex-col items-center">
                   <h1 class="text-amber-400 font-bold text-2xl">Medium</h1>
-                  <UBadge :label="groupsStore.scores.medium" color="amber" variant="soft" />
+                  <UBadge :label="`${groupsStore.scores.medium}`" color="amber" variant="soft" />
                 </div>
               </UCard>
             </li>
@@ -32,7 +32,7 @@
               <UCard class="w-full">
                 <div class="flex flex-col items-center">
                   <h1 class="text-red-400 font-bold text-2xl">Hard</h1>
-                  <UBadge :label="groupsStore.scores.hard" color="red" variant="soft" />
+                  <UBadge :label="`${groupsStore.scores.hard}`" color="red" variant="soft" />
                 </div>
               </UCard>
             </li>
